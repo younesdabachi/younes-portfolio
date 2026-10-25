@@ -38,7 +38,7 @@ export function SectionProgress() {
         >
           <span
             className={cn(
-              'rounded-full bg-text/80 px-2 py-0.5 font-mono text-[10px] opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100',
+              'rounded-full bg-text/80 px-2 py-0.5 font-mono text-[10px] text-bg opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100',
               active === id && 'opacity-100'
             )}
           >

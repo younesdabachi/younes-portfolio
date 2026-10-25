@@ -170,6 +170,7 @@
     "lang": "Switch to French",
     "downloadCv": "Download CV",
     "copyEmail": "Copy email address",
+    "copyPhone": "Copy phone number",
     "empty": "No results",
     "hint": "↑ ↓ navigate · Enter select · Esc close"
   },
@@ -177,14 +178,34 @@
     "boot1": "Last login: portfolio session.",
     "boot2": "Type \"help\" to list available commands.",
     "help": [
-      "help      show this help",
-      "whoami    who am I",
-      "skills    list my skills",
-      "contact   contact details",
-      "clear     clear the terminal"
+      "help       show this help",
+      "whoami     who am I",
+      "skills     list my skills",
+      "projects   list my projects",
+      "experience career history",
+      "education  degrees & certifications",
+      "neofetch   portfolio system card",
+      "contact    contact details",
+      "overdrive  engage overdrive mode",
+      "clear      clear the terminal"
     ],
     "whoamiLines": ["Name", "Title", "Localisation"],
     "skillsHeader": "Skill groups:",
+    "projectsHeader": "Projects:",
+    "experienceHeader": "Experience:",
+    "educationHeader": "Degrees:",
+    "certsHeader": "Certifications:",
+    "neofetchLines": [
+      "younes@portfolio",
+      "─────────────────────",
+      "OS        : Portfolio Linux (cyberpunk)",
+      "Host      : younes-portfolio v2.0",
+      "Kernel    : React 18 · TypeScript · Three.js",
+      "Uptime    : active since 2019",
+      "Shell     : SOC terminal",
+      "Language  : fr / en",
+      "Theme     : phosphor green"
+    ],
     "contactLines": ["Email", "Phone", "Location"],
     "unknown": "Unknown command",
     "unknownHint": "Type \"help\" to list available commands."

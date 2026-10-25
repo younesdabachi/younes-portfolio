@@ -11,6 +11,7 @@ import { CommandPalette } from './components/CommandPalette';
 import { HudStatusBar } from './components/HudStatusBar';
 import { Ticker } from './components/Ticker';
 import { Overdrive } from './components/Overdrive';
+import { GlitchPulse } from './components/GlitchPulse';
 import { Hero } from './sections/Hero';
 import { About } from './sections/About';
 import { Skills } from './sections/Skills';
@@ -63,6 +64,7 @@ export default function App() {
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
       <HudStatusBar />
       <Overdrive />
+      <GlitchPulse />
 
       <main>
         <Hero />

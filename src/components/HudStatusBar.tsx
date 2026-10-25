@@ -20,10 +20,11 @@ export function HudStatusBar() {
 
   return (
     <div
-      className="pointer-events-none fixed bottom-3 left-4 z-40 hidden font-mono text-[10px] tracking-wider text-hack-dim/80 md:block"
+      className="pointer-events-none fixed bottom-3 left-4 z-40 hidden font-mono text-[10px] tracking-wider md:block"
       aria-hidden="true"
     >
-      <span className="text-hack">[ SOC:OK ]</span> {clock} ▮ MEM:STABLE ▮ SES:{session}
+      <span className="hud-fg-strong">[ SOC:OK ]</span>{' '}
+      <span className="hud-fg">{clock} ▮ MEM:STABLE ▮ SES:{session}</span>
     </div>
   );
 }

@@ -20,7 +20,7 @@ function Fact({ value, suffix, label }: { value: number; suffix?: string; label:
   );
 }
 
-/** À propos : profil, photo (repli « YA »), faits réels, terminal interactif. */
+/** À propos : profil, photo glitchée (repli « YA »), faits réels, terminal interactif. */
 export function About() {
   const { dict } = useI18n();
   const [photoError, setPhotoError] = useState(false);
@@ -35,7 +35,7 @@ export function About() {
           <Reveal>
             <div className="relative mx-auto w-64 sm:w-72">
               <div
-                className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary/30 via-accent/20 to-gold/20 blur-xl"
+                className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary/30 via-accent/20 to-neon/20 blur-xl"
                 aria-hidden="true"
               />
               {photoError ? (
@@ -45,16 +45,22 @@ export function About() {
                   </span>
                 </div>
               ) : (
-                <img
-                  src={site.profilePhoto}
-                  alt={dict.about.photoAlt}
-                  onError={() => setPhotoError(true)}
-                  width={576}
-                  height={720}
-                  loading="lazy"
-                  decoding="async"
-                  className="glass gradient-border relative aspect-[4/5] w-full rounded-3xl object-cover"
-                />
+                <div className="glitch-photo glass gradient-border relative aspect-[4/5] w-full rounded-3xl">
+                  <img
+                    src={site.profilePhoto}
+                    alt={dict.about.photoAlt}
+                    onError={() => setPhotoError(true)}
+                    width={576}
+                    height={720}
+                    loading="lazy"
+                    decoding="async"
+                    className="relative z-10 h-full w-full rounded-3xl object-cover"
+                  />
+                  {/* Calques glitch (copies RGB décalées) + barre de balayage */}
+                  <img src={site.profilePhoto} alt="" aria-hidden="true" className="glitch-copy glitch-copy-a" />
+                  <img src={site.profilePhoto} alt="" aria-hidden="true" className="glitch-copy glitch-copy-b" />
+                  <span className="glitch-scan" aria-hidden="true" />
+                </div>
               )}
             </div>
           </Reveal>

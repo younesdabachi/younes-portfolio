@@ -55,15 +55,22 @@ export function Navbar({ onOpenPalette }: NavbarProps) {
         className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6"
         aria-label={dict.nav.home}
       >
-        {/* Monogramme */}
-        <button
-          onClick={() => scrollToSection('#hero')}
-          className="glass gradient-border flex h-10 w-10 items-center justify-center rounded-xl"
-          aria-label={dict.nav.home}
-          data-cursor
-        >
-          <span className="font-display text-sm font-bold text-gradient">YA</span>
-        </button>
+        {/* Monogramme + LEDs de signal */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => scrollToSection('#hero')}
+            className="glass gradient-border flex h-10 w-10 items-center justify-center rounded-xl"
+            aria-label={dict.nav.home}
+            data-cursor
+          >
+            <span className="font-display text-sm font-bold text-gradient">YA</span>
+          </button>
+          <span className="hidden items-center gap-1.5 sm:flex" aria-hidden="true">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-dot" />
+            <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-dot [animation-delay:0.5s]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse-dot [animation-delay:1s]" />
+          </span>
+        </div>
 
         {/* Liens desktop */}
         <ul className="hidden items-center gap-1 lg:flex">
@@ -71,7 +78,7 @@ export function Navbar({ onOpenPalette }: NavbarProps) {
             <li key={id}>
               <button
                 onClick={() => go(id)}
-                className="rounded-full px-3 py-2 text-sm text-muted transition-colors hover:bg-surface/60 hover:text-text"
+                className="nav-glitch rounded-full px-3 py-2 text-sm text-muted transition-colors hover:bg-surface/60 hover:text-text"
                 data-cursor
               >
                 {labels[id]}

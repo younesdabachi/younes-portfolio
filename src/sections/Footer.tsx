@@ -1,7 +1,33 @@
+import { useEffect, useState } from 'react';
 import { ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
 import { useI18n } from '../i18n/I18n';
+import { useMotionPreference } from '../hooks/MotionProvider';
 import { site } from '../data/site';
 import { scrollToSection } from '../hooks/useLenis';
+
+/** Ligne hexadécimale décorative (régénérée périodiquement). */
+function HexDump() {
+  const { reduceMotion } = useMotionPreference();
+  const [hex, setHex] = useState(() => genHex());
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const id = window.setInterval(() => setHex(genHex()), 2500);
+    return () => window.clearInterval(id);
+  }, [reduceMotion]);
+
+  return (
+    <p className="hud-fg break-all font-mono text-[10px] leading-relaxed tracking-wider" aria-hidden="true">
+      {hex}
+    </p>
+  );
+}
+
+function genHex(): string {
+  const bytes = new Uint8Array(28);
+  crypto.getRandomValues(bytes);
+  return [...bytes].map((b) => b.toString(16).padStart(2, '0')).join(' ');
+}
 
 /** Pied de page : monogramme, coordonnées, mention légale, retour en haut. */
 export function Footer() {
@@ -48,11 +74,14 @@ export function Footer() {
       </div>
 
       <div className="border-t border-line">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-center text-xs text-muted sm:px-6 md:flex-row md:text-left">
-          <p>
-            © 2026 {site.name}. {dict.footer.rights}
-          </p>
-          <p>{dict.footer.built}</p>
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 sm:px-6">
+          <HexDump />
+          <div className="flex flex-col items-center justify-between gap-2 text-center text-xs text-muted md:flex-row md:text-left">
+            <p>
+              © 2026 {site.name}. {dict.footer.rights}
+            </p>
+            <p>{dict.footer.built}</p>
+          </div>
         </div>
       </div>
     </footer>

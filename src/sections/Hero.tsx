@@ -5,6 +5,7 @@ import { useI18n } from '../i18n/I18n';
 import { useMotionPreference } from '../hooks/MotionProvider';
 import { isWebGLAvailable } from '../hooks/useWebGL';
 import { scrollToSection } from '../hooks/useLenis';
+import { scrambleTo } from '../utils/scramble';
 import { MagneticButton } from '../components/MagneticButton';
 import { site } from '../data/site';
 
@@ -18,6 +19,20 @@ export function Hero() {
   const [mount3D, setMount3D] = useState(false);
   const [roleIndex, setRoleIndex] = useState(0);
   const [roleText, setRoleText] = useState(dict.hero.roles[0]);
+  const [taglineDisplay, setTaglineDisplay] = useState(dict.hero.tagline);
+
+  // Tagline « décryptée » après le chargement (sans flush initial : zéro layout shift).
+  useEffect(() => {
+    if (reduceMotion) {
+      setTaglineDisplay(dict.hero.tagline);
+      return;
+    }
+    const timer = window.setTimeout(
+      () => scrambleTo(dict.hero.tagline, setTaglineDisplay),
+      900
+    );
+    return () => window.clearTimeout(timer);
+  }, [reduceMotion, dict.hero.tagline]);
 
   // Monte la scène 3D après le premier rendu (LCP d'abord), jamais en mouvement réduit.
   useEffect(() => {
@@ -177,7 +192,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-6 max-w-xl leading-relaxed text-muted"
           >
-            {dict.hero.tagline}
+            {taglineDisplay}
           </motion.p>
 
           <motion.div

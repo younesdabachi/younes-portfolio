@@ -2,6 +2,10 @@ import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useI18n } from '../i18n/I18n';
 import { site } from '../data/site';
 import { skillGroups } from '../data/skills';
+import { projects } from '../data/projects';
+import { experiences } from '../data/experience';
+import { certificationList, educationList } from '../data/education';
+import { triggerOverdrive } from './Overdrive';
 
 interface TerminalLine {
   id: number;
@@ -62,6 +66,38 @@ export function Terminal() {
         skillGroups.forEach((group) => {
           push('output', `— ${group.title[lang]} : ${group.chips[lang].join(', ')}`);
         });
+        break;
+      }
+      case 'projects': {
+        push('output', dict.terminal.projectsHeader);
+        projects.forEach((p) => {
+          push('output', `— ${p.title} [${p.period}] : ${p.description[lang].split('.')[0]}.`);
+        });
+        break;
+      }
+      case 'experience': {
+        push('output', dict.terminal.experienceHeader);
+        experiences.forEach((e) => {
+          push('output', `— ${e.start}–${e.end ?? '…'} : ${e.role[lang]} @ ${e.company}`);
+        });
+        break;
+      }
+      case 'education': {
+        push('output', dict.terminal.educationHeader);
+        educationList.forEach((e) => {
+          push('output', `— ${e.title[lang]} @ ${e.org} (${e.period})`);
+        });
+        push('output', dict.terminal.certsHeader);
+        certificationList.forEach((c) => push('output', `— ${c}`));
+        break;
+      }
+      case 'neofetch': {
+        dict.terminal.neofetchLines.forEach((line) => push('output', line));
+        break;
+      }
+      case 'overdrive': {
+        triggerOverdrive();
+        push('output', dict.lab.overdrive);
         break;
       }
       case 'contact': {

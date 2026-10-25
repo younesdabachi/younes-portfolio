@@ -7,6 +7,7 @@ import {
   Languages,
   Mail,
   Moon,
+  Phone,
   Search,
   Sparkles,
   Sun,
@@ -133,6 +134,15 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
         icon: <Mail className="h-4 w-4" aria-hidden="true" />,
         run: () => {
           void navigator.clipboard?.writeText(site.email);
+        },
+      },
+      {
+        id: 'phone',
+        label: dict.palette.copyPhone,
+        group: 'action',
+        icon: <Phone className="h-4 w-4" aria-hidden="true" />,
+        run: () => {
+          void navigator.clipboard?.writeText(site.phoneDisplay);
         },
       },
     ];

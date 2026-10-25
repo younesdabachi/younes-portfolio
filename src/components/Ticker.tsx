@@ -31,16 +31,19 @@ export function Ticker() {
   const row = (key: string) => (
     <ul key={key} className="flex shrink-0 items-center" aria-hidden="true">
       {KEYWORDS.map((word) => (
-        <li key={word} className="flex items-center font-mono text-xs tracking-[0.25em] text-hack-dim/70">
+        <li key={word} className="flex items-center font-mono text-xs tracking-[0.25em] hud-fg">
           <span className="px-6">{word}</span>
-          <span className="text-hack/40">✦</span>
+          <span className="hud-fg-strong opacity-60">✦</span>
         </li>
       ))}
     </ul>
   );
 
   return (
-    <div className="relative overflow-hidden border-y border-hack-line bg-black/30 py-3">
+    <div
+      className="relative overflow-hidden border-y border-line py-3"
+      style={{ background: 'var(--hud-strip)' }}
+    >
       <div className="ticker-track">
         {row('a')}
         {row('b')}

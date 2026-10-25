@@ -468,6 +468,109 @@ html.motion-ok body.overdrive .text-gradient {
   }
 }
 
+/* Texte HUD lisible dans les deux thèmes (barre d'état, ticker) */
+:root {
+  --hud-fg: rgba(74, 222, 128, 0.75);
+  --hud-fg-strong: #4ade80;
+  --hud-strip: rgba(1, 8, 6, 0.35);
+}
+html.light {
+  --hud-fg: #2f7a4d;
+  --hud-fg-strong: #15803d;
+  --hud-strip: rgba(4, 20, 13, 0.05);
+}
+.hud-fg {
+  color: var(--hud-fg);
+}
+.hud-fg-strong {
+  color: var(--hud-fg-strong);
+}
+
+/* ---------------------------------------------------------------------------
+   Glitch photo de profil — boucle : déchirures RGB + barre de balayage
+--------------------------------------------------------------------------- */
+.glitch-photo {
+  position: relative;
+  overflow: hidden;
+}
+.glitch-photo .glitch-copy {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+}
+html.motion-ok .glitch-copy-a {
+  animation: photo-glitch-a 4.2s steps(1) infinite;
+  filter: hue-rotate(95deg) saturate(1.6);
+}
+html.motion-ok .glitch-copy-b {
+  animation: photo-glitch-b 3.6s steps(1) infinite;
+  filter: hue-rotate(-70deg) saturate(1.3);
+}
+@keyframes photo-glitch-a {
+  0%, 100% { clip-path: inset(100% 0 0 0); transform: none; }
+  72% { clip-path: inset(12% 0 74% 0); transform: translateX(-7px); opacity: 0.85; }
+  74% { clip-path: inset(58% 0 22% 0); transform: translateX(6px); opacity: 0.85; }
+  76% { clip-path: inset(30% 0 55% 0); transform: translateX(-4px); opacity: 0.85; }
+  78% { clip-path: inset(100% 0 0 0); transform: none; opacity: 0; }
+}
+@keyframes photo-glitch-b {
+  0%, 100% { clip-path: inset(100% 0 0 0); transform: none; }
+  43% { clip-path: inset(70% 0 12% 0); transform: translateX(8px); opacity: 0.8; }
+  45% { clip-path: inset(20% 0 66% 0); transform: translateX(-6px); opacity: 0.8; }
+  47% { clip-path: inset(100% 0 0 0); transform: none; opacity: 0; }
+}
+/* Barre de balayage traversant la photo */
+html.motion-ok .glitch-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 18%;
+  z-index: 30;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in oklab, var(--color-accent) 30%, transparent),
+    transparent
+  );
+  animation: photo-scan 5.5s ease-in-out infinite;
+}
+@keyframes photo-scan {
+  0%, 12% { top: -20%; opacity: 0; }
+  18% { opacity: 0.7; }
+  46% { top: 105%; opacity: 0.7; }
+  52%, 100% { top: 105%; opacity: 0; }
+}
+
+/* ---------------------------------------------------------------------------
+   Micro-glitch des liens de navigation au survol
+--------------------------------------------------------------------------- */
+html.motion-ok .nav-glitch:hover {
+  animation: nav-micro-glitch 0.32s steps(1) 1;
+}
+@keyframes nav-micro-glitch {
+  0% { text-shadow: -2px 0 var(--color-accent), 2px 0 var(--color-neon); transform: translateX(0); }
+  33% { text-shadow: 2px 0 var(--color-accent), -2px 0 var(--color-neon); transform: translateX(1px) skewX(-4deg); }
+  66% { text-shadow: -1px 0 var(--color-accent), 1px 0 var(--color-neon); transform: translateX(-1px); }
+  100% { text-shadow: none; transform: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Impulsion de glitch globale ( périodique, très brève, sur <main> )
+--------------------------------------------------------------------------- */
+html.motion-ok .glitch-pulse-active main {
+  animation: site-glitch 0.18s steps(1) 1;
+}
+@keyframes site-glitch {
+  0% { filter: hue-rotate(25deg) contrast(1.15); transform: translateX(-3px); }
+  50% { filter: hue-rotate(-20deg); transform: translateX(2px) skewX(-0.3deg); }
+  100% { filter: none; transform: none; }
+}
+
 /* ---------------------------------------------------------------------------
    Mouvement réduit : neutralise les animations restantes.
    html.force-motion restaure les animations si l'utilisateur les active

@@ -1,5 +1,7 @@
 import { FolderOpen, Globe, Network, ShieldCheck, Wrench, type LucideIcon } from 'lucide-react';
 import { useI18n } from '../i18n/I18n';
+import { useMotionPreference } from '../hooks/MotionProvider';
+import { scrambleTo } from '../utils/scramble';
 import { SectionHeading } from '../components/SectionHeading';
 import { GlassCard } from '../components/GlassCard';
 import { Reveal } from '../components/Reveal';
@@ -26,6 +28,25 @@ const spans = [
 /** Compétences : cartes bento, chips uniquement — aucun pourcentage inventé. */
 export function Skills() {
   const { dict, lang } = useI18n();
+  const { reduceMotion } = useMotionPreference();
+
+  // Effet « décryptage » bref au survol d'une chip (écriture directe DOM, sans re-render).
+  const handleChipHover = (event: React.MouseEvent<HTMLLIElement>, original: string) => {
+    if (reduceMotion) return;
+    const el = event.currentTarget;
+    if (el.dataset.busy === '1') return;
+    el.dataset.busy = '1';
+    scrambleTo(
+      original,
+      (text) => {
+        el.textContent = text;
+      },
+      () => {
+        delete el.dataset.busy;
+      },
+      12
+    );
+  };
 
   return (
     <section id="skills" className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 md:py-32">
@@ -47,6 +68,7 @@ export function Skills() {
                   {group.chips[lang].map((chip) => (
                     <li
                       key={chip}
+                      onMouseEnter={(e) => handleChipHover(e, chip)}
                       className="rounded-full border border-line bg-elevated/70 px-3 py-1.5 font-mono text-xs text-text/85 transition-colors hover:border-accent/50 hover:text-text"
                     >
                       {chip}
