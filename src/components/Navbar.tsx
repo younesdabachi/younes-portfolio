@@ -11,7 +11,7 @@ interface NavbarProps {
   onOpenPalette: () => void;
 }
 
-const navIds = ['about', 'skills', 'experience', 'projects', 'services', 'education', 'contact'] as const;
+const navIds = ['about', 'skills', 'experience', 'projects', 'services', 'education', 'lab', 'contact'] as const;
 
 /** Barre de navigation fixe : verre au scroll, toggles thème/langue, palette, menu mobile. */
 export function Navbar({ onOpenPalette }: NavbarProps) {
@@ -35,6 +35,7 @@ export function Navbar({ onOpenPalette }: NavbarProps) {
     projects: dict.nav.projects,
     services: dict.nav.services,
     education: dict.nav.education,
+    lab: dict.nav.lab,
     contact: dict.nav.contact,
   };
 

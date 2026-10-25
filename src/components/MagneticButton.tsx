@@ -63,7 +63,7 @@ export function MagneticButton({
         'inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold',
         'transition-colors duration-200 will-change-transform',
         variant === 'primary'
-          ? 'bg-primary-strong text-white shadow-[0_0_28px_-6px_rgba(59,130,246,0.55)] hover:bg-primary'
+          ? 'bg-primary-strong text-[#01130b] shadow-[0_0_28px_-6px_rgba(74,222,128,0.55)] hover:bg-primary'
           : 'glass text-text hover:border-accent/50',
         className
       )}

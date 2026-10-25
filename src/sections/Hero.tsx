@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowDown, Download, MapPin, Send } from 'lucide-react';
 import { useI18n } from '../i18n/I18n';
 import { useMotionPreference } from '../hooks/MotionProvider';
@@ -12,11 +12,12 @@ const NetworkScene = lazy(() => import('../components/three/NetworkScene'));
 
 /** Hero plein écran : nom en dégradé animé, rôles rotatifs, CTA, topologie 3D. */
 export function Hero() {
-  const { dict } = useI18n();
+  const { dict, lang } = useI18n();
   const { reduceMotion } = useMotionPreference();
   const webglAvailable = useMemo(isWebGLAvailable, []);
   const [mount3D, setMount3D] = useState(false);
   const [roleIndex, setRoleIndex] = useState(0);
+  const [roleText, setRoleText] = useState(dict.hero.roles[0]);
 
   // Monte la scène 3D après le premier rendu (LCP d'abord), jamais en mouvement réduit.
   useEffect(() => {
@@ -28,15 +29,47 @@ export function Hero() {
     return () => window.clearTimeout(timer);
   }, [webglAvailable, reduceMotion]);
 
-  // Rotation des rôles
+  // Rôles en effet « machine à écrire » : frappe, pause, effacement, suivant.
   useEffect(() => {
-    if (reduceMotion) return;
-    const id = window.setInterval(
-      () => setRoleIndex((i) => (i + 1) % dict.hero.roles.length),
-      2600
-    );
-    return () => window.clearInterval(id);
-  }, [dict.hero.roles.length, reduceMotion]);
+    if (reduceMotion) {
+      setRoleText(dict.hero.roles[roleIndex]);
+      return;
+    }
+    const roles = dict.hero.roles;
+    let timer = 0;
+    let cancelled = false;
+
+    const typeNext = (index: number, charPos: number, deleting: boolean) => {
+      if (cancelled) return;
+      const full = roles[index];
+      if (!deleting) {
+        setRoleText(full.slice(0, charPos));
+        if (charPos < full.length) {
+          timer = window.setTimeout(() => typeNext(index, charPos + 1, false), 55);
+        } else {
+          timer = window.setTimeout(() => typeNext(index, charPos, true), 1600);
+        }
+      } else {
+        setRoleText(full.slice(0, charPos));
+        if (charPos > 0) {
+          timer = window.setTimeout(() => typeNext(index, charPos - 1, true), 26);
+        } else {
+          const next = (index + 1) % roles.length;
+          setRoleIndex(next);
+          timer = window.setTimeout(() => typeNext(next, 0, false), 350);
+        }
+      }
+    };
+
+    // (re)démarre proprement à chaque changement de langue
+    typeNext(roleIndex, roles[roleIndex].length, true);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reduceMotion, dict.hero.roles, lang]);
 
   return (
     <section
@@ -134,18 +167,7 @@ export function Hero() {
             <span className="mr-2 text-muted" aria-hidden="true">
               ‹›
             </span>
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={roleIndex}
-                initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduceMotion ? undefined : { opacity: 0, y: -12 }}
-                transition={{ duration: 0.4 }}
-                className="text-accent"
-              >
-                {dict.hero.roles[roleIndex]}
-              </motion.span>
-            </AnimatePresence>
+            <span className="text-accent">{roleText}</span>
             <span className="ml-1 inline-block h-6 w-[2px] animate-blink bg-accent" aria-hidden="true" />
           </motion.div>
 

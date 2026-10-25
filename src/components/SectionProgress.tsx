@@ -3,7 +3,7 @@ import { useActiveSection } from '../hooks/useActiveSection';
 import { scrollToSection } from '../hooks/useLenis';
 import { cn } from '../utils/cn';
 
-const sectionIds = ['hero', 'about', 'skills', 'experience', 'projects', 'services', 'education', 'languages', 'contact'];
+const sectionIds = ['hero', 'about', 'skills', 'experience', 'projects', 'services', 'education', 'languages', 'lab', 'contact'];
 
 /** Indicateur de progression : points latéraux, actif selon la section visible. */
 export function SectionProgress() {
@@ -19,6 +19,7 @@ export function SectionProgress() {
     services: dict.nav.services,
     education: dict.nav.education,
     languages: dict.nav.languages,
+    lab: dict.nav.lab,
     contact: dict.nav.contact,
   };
 

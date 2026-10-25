@@ -30,6 +30,7 @@
     "services": "Services",
     "education": "Formation",
     "languages": "Langues",
+    "lab": "Lab",
     "contact": "Contact"
   },
   "hero": {
@@ -41,6 +42,15 @@
     "contact": "Me contacter",
     "scroll": "Défiler",
     "networkLabel": "Topologie réseau interactive"
+  },
+  "intro": {
+    "bootLines": [
+      "[ OK ] noyau portfolio v2.0",
+      "[ OK ] montage /compétences",
+      "[ OK ] liaison SOC établie",
+      "[ OK ] interface fr/en chargée"
+    ],
+    "granted": "ACCÈS AUTORISÉ"
   },
   "about": {
     "kicker": "01 · À propos",
@@ -97,6 +107,22 @@
   "langs": {
     "kicker": "07 · Langues",
     "title": "Langues"
+  },
+  "lab": {
+    "kicker": "// INTERLUDE · MODE SOC",
+    "title": "Bienvenue dans le SOC",
+    "subtitle": "Une expérience inspirée des films de hackers. Flux entièrement décoratif : aucune donnée réelle, aucun système réel.",
+    "feedTitle": "FLUX D'ALERTES — SIMULATION",
+    "decryptTitle": "PROTOCOLE DE DÉCRYPTAGE",
+    "decryptHint": "Chaque appui révèle une valeur réelle du profil.",
+    "decryptButton": "DÉCRYPTER",
+    "accessGranted": "ACCÈS AUTORISÉ",
+    "encrypted": "CHIFFRÉ",
+    "traits": ["RIGUEUR", "AUTONOMIE", "CONFIDENTIALITÉ", "RÉSOLUTION DE PROBLÈMES", "RESPECT DES DÉLAIS"],
+    "a11yRain": "Animation décorative : pluie de caractères style terminal",
+    "a11yFeed": "Flux d'alertes simulé, purement décoratif",
+    "a11yReveal": "Valeur décryptée",
+    "overdrive": "MODE OVERDRIVE ACTIVÉ"
   },
   "contact": {
     "kicker": "08 · Contact",

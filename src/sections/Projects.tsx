@@ -23,6 +23,10 @@ export function Projects() {
     [filter]
   );
 
+  /** Numéro de dossier style cyberpunk : PRJ-01… stable quel que soit le filtre. */
+  const prjId = (project: Project) =>
+    `PRJ-${String(projects.findIndex((p) => p.id === project.id) + 1).padStart(2, '0')}`;
+
   return (
     <section id="projects" className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 md:py-32">
       <SectionHeading kicker={dict.projects.kicker} title={dict.projects.title} />
@@ -38,7 +42,7 @@ export function Projects() {
               className={cn(
                 'rounded-full px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all',
                 filter === f
-                  ? 'bg-primary-strong text-white shadow-[0_0_20px_-6px_rgba(59,130,246,0.6)]'
+                  ? 'bg-primary-strong text-[#01130b] shadow-[0_0_20px_-6px_rgba(74,222,128,0.6)]'
                   : 'glass text-muted hover:text-text'
               )}
               data-cursor
@@ -74,9 +78,14 @@ export function Projects() {
                     className="aspect-[400/240] w-full"
                   />
                   <div className="mt-5 flex flex-1 flex-col">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
-                      {dict.projects.filters[project.category]}
-                    </p>
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
+                        {dict.projects.filters[project.category]}
+                      </p>
+                      <p className="font-mono text-[10px] tracking-[0.2em] text-muted/70">
+                        {prjId(project)}
+                      </p>
+                    </div>
                     <h3 className="mt-2 font-display text-lg font-semibold leading-snug">
                       {project.title}
                     </h3>

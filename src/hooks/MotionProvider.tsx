@@ -72,12 +72,13 @@ export function MotionProvider({ children }: { children: ReactNode }) {
 
   // force-motion : restaure les animations CSS bloquées par la règle
   // @media (prefers-reduced-motion: reduce) lorsque l'utilisateur les active.
+  // motion-ok / motion-reduced : gate CSS pour les effets du Lab (glitch, scanlines).
   useEffect(() => {
-    document.documentElement.classList.toggle(
-      'force-motion',
-      choice === 'on' && systemReduced
-    );
-  }, [choice, systemReduced]);
+    const root = document.documentElement;
+    root.classList.toggle('force-motion', choice === 'on' && systemReduced);
+    root.classList.toggle('motion-ok', !reduceMotion);
+    root.classList.toggle('motion-reduced', reduceMotion);
+  }, [choice, systemReduced, reduceMotion]);
 
   const value = useMemo<MotionContextValue>(
     () => ({ reduceMotion, choice, setChoice, toggle }),

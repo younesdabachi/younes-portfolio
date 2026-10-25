@@ -8,6 +8,9 @@ import { Cursor } from './components/Cursor';
 import { Navbar } from './components/Navbar';
 import { SectionProgress } from './components/SectionProgress';
 import { CommandPalette } from './components/CommandPalette';
+import { HudStatusBar } from './components/HudStatusBar';
+import { Ticker } from './components/Ticker';
+import { Overdrive } from './components/Overdrive';
 import { Hero } from './sections/Hero';
 import { About } from './sections/About';
 import { Skills } from './sections/Skills';
@@ -16,6 +19,7 @@ import { Projects } from './sections/Projects';
 import { Services } from './sections/Services';
 import { Education } from './sections/Education';
 import { Languages } from './sections/Languages';
+import { Lab } from './sections/Lab';
 import { Contact } from './sections/Contact';
 import { Footer } from './sections/Footer';
 
@@ -43,7 +47,7 @@ export default function App() {
     <>
       <a
         href="#about"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:rounded-full focus:bg-primary-strong focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:rounded-full focus:bg-primary-strong focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-[#01130b]"
       >
         {dict.a11y.skipToContent}
       </a>
@@ -57,9 +61,12 @@ export default function App() {
       <Navbar onOpenPalette={() => setPaletteOpen(true)} />
       <SectionProgress />
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+      <HudStatusBar />
+      <Overdrive />
 
       <main>
         <Hero />
+        <Ticker />
         <About />
         <Skills />
         <Experience />
@@ -67,6 +74,7 @@ export default function App() {
         <Services />
         <Education />
         <Languages />
+        <Lab />
         <Contact />
       </main>
 

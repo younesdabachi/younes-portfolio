@@ -30,6 +30,7 @@
     "services": "Services",
     "education": "Education",
     "languages": "Languages",
+    "lab": "Lab",
     "contact": "Contact"
   },
   "hero": {
@@ -41,6 +42,15 @@
     "contact": "Get in touch",
     "scroll": "Scroll",
     "networkLabel": "Interactive network topology"
+  },
+  "intro": {
+    "bootLines": [
+      "[ OK ] portfolio kernel v2.0",
+      "[ OK ] mounting /skills",
+      "[ OK ] SOC link established",
+      "[ OK ] fr/en interface loaded"
+    ],
+    "granted": "ACCESS GRANTED"
   },
   "about": {
     "kicker": "01 · About",
@@ -95,8 +105,24 @@
     "certBy": "Microsoft"
   },
   "langs": {
-    "kicker": "07 · Languages",
-    "title": "Languages"
+    "kicker": "07 · Langues",
+    "title": "Langues"
+  },
+  "lab": {
+    "kicker": "// INTERLUDE · SOC MODE",
+    "title": "Welcome to the SOC",
+    "subtitle": "An experience inspired by hacker movies. Entirely decorative feed: no real data, no real systems.",
+    "feedTitle": "ALERT FEED — SIMULATION",
+    "decryptTitle": "DECRYPTION PROTOCOL",
+    "decryptHint": "Each press reveals a real profile trait.",
+    "decryptButton": "DECRYPT",
+    "accessGranted": "ACCESS GRANTED",
+    "encrypted": "ENCRYPTED",
+    "traits": ["RIGOR", "AUTONOMY", "CONFIDENTIALITY", "PROBLEM SOLVING", "DEADLINE RESPECT"],
+    "a11yRain": "Decorative animation: terminal-style character rain",
+    "a11yFeed": "Simulated alert feed, purely decorative",
+    "a11yReveal": "Decrypted value",
+    "overdrive": "OVERDRIVE MODE ENGAGED"
   },
   "contact": {
     "kicker": "08 · Contact",

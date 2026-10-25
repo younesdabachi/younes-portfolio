@@ -1,65 +1,69 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useI18n } from '../i18n/I18n';
 import { useMotionPreference } from '../hooks/MotionProvider';
 
 /**
- * Intro de chargement (< 1,2 s) : monogramme YA + barre de progression.
+ * Intro « séquence de boot » (< 2 s, cliquable pour passer) :
+ * lignes de démarrage terminal puis ACCÈS AUTORISÉ.
  * Ignorée entièrement si les animations sont désactivées.
  */
 export function IntroLoader({ onDone }: { onDone: () => void }) {
   const { dict } = useI18n();
   const { reduceMotion } = useMotionPreference();
-  const [progress, setProgress] = useState(0);
+  const [visibleLines, setVisibleLines] = useState(0);
+  const [granted, setGranted] = useState(false);
+  const doneRef = useRef(false);
+
+  const finish = () => {
+    if (doneRef.current) return;
+    doneRef.current = true;
+    onDone();
+  };
 
   useEffect(() => {
     if (reduceMotion) {
-      onDone();
+      finish();
       return;
     }
-    const start = performance.now();
-    const duration = 950;
-    let frame = 0;
-    const tick = (now: number) => {
-      const ratio = Math.min(1, (now - start) / duration);
-      setProgress(ratio);
-      if (ratio < 1) {
-        frame = requestAnimationFrame(tick);
-      } else {
-        window.setTimeout(onDone, 150);
-      }
-    };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [onDone, reduceMotion]);
+    const lines = dict.intro.bootLines;
+    const timers: number[] = [];
+    lines.forEach((_, i) => {
+      timers.push(window.setTimeout(() => setVisibleLines(i + 1), 240 + i * 260));
+    });
+    timers.push(
+      window.setTimeout(() => setGranted(true), 240 + lines.length * 260 + 160)
+    );
+    timers.push(window.setTimeout(finish, 240 + lines.length * 260 + 950));
+    return () => timers.forEach(window.clearTimeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reduceMotion, dict.intro.bootLines]);
 
   if (reduceMotion) return null;
 
   return (
     <motion.div
-      className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-bg"
+      className="fixed inset-0 z-[200] flex cursor-pointer flex-col items-center justify-center bg-[#010604]"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.45, ease: 'easeInOut' } }}
       role="status"
       aria-label={dict.a11y.loading}
+      onClick={finish}
     >
-      <motion.div
-        initial={{ scale: 0.85, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="glass gradient-border flex h-20 w-20 items-center justify-center rounded-2xl"
-      >
-        <span className="font-display text-3xl font-bold text-gradient animate-gradient-x">YA</span>
-      </motion.div>
-
-      <div className="mt-8 h-px w-44 overflow-hidden rounded-full bg-line">
-        <div
-          className="h-full bg-gradient-to-r from-primary via-accent to-gold transition-[width] duration-100 ease-linear"
-          style={{ width: `${progress * 100}%` }}
-        />
+      <div className="hack-panel scanlines hud-corners relative w-[min(92vw,480px)] rounded-2xl p-6">
+        <div className="font-mono text-[12px] leading-loose text-hack-dim">
+          {dict.intro.bootLines.slice(0, visibleLines).map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+          {granted && (
+            <p className="hack-caret mt-3 text-base font-bold tracking-[0.25em] text-hack">
+              {dict.intro.granted}
+            </p>
+          )}
+        </div>
       </div>
-      <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.3em] text-muted">
-        {Math.round(progress * 100)}%
+      <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.3em] text-hack-dim/60">
+        {dict.a11y.loading}
       </p>
     </motion.div>
   );

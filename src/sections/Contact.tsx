@@ -262,7 +262,7 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className="inline-flex items-center gap-2 rounded-full bg-primary-strong px-6 py-3 text-sm font-semibold text-white shadow-[0_0_28px_-6px_rgba(59,130,246,0.55)] transition-all hover:bg-primary disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary-strong px-6 py-3 text-sm font-semibold text-[#01130b] shadow-[0_0_28px_-6px_rgba(74,222,128,0.55)] transition-all hover:bg-primary disabled:cursor-not-allowed disabled:opacity-60"
                   data-cursor
                 >
                   {status === 'sending' ? (

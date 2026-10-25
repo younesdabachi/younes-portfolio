@@ -6,26 +6,26 @@
 export function AuroraBackground() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-      {/* Aurore — trois halos animés */}
+      {/* Aurore — trois halos animés (palette cyberpunk SOC) */}
       <div
         className="animate-aurora-a absolute -top-[20%] -left-[15%] h-[60vmax] w-[60vmax] rounded-full opacity-25 blur-3xl"
         style={{
           background:
-            'radial-gradient(closest-side, rgba(59,130,246,0.55), rgba(37,99,235,0.18) 55%, transparent 75%)',
+            'radial-gradient(closest-side, rgba(34,197,94,0.5), rgba(34,197,94,0.14) 55%, transparent 75%)',
         }}
       />
       <div
         className="animate-aurora-b absolute top-[10%] -right-[20%] h-[55vmax] w-[55vmax] rounded-full opacity-20 blur-3xl"
         style={{
           background:
-            'radial-gradient(closest-side, rgba(34,211,238,0.5), rgba(34,211,238,0.15) 55%, transparent 75%)',
+            'radial-gradient(closest-side, rgba(34,211,238,0.45), rgba(34,211,238,0.12) 55%, transparent 75%)',
         }}
       />
       <div
         className="animate-aurora-c absolute -bottom-[25%] left-[20%] h-[50vmax] w-[50vmax] rounded-full opacity-[0.13] blur-3xl"
         style={{
           background:
-            'radial-gradient(closest-side, rgba(245,165,36,0.55), rgba(245,165,36,0.12) 50%, transparent 75%)',
+            'radial-gradient(closest-side, rgba(232,121,249,0.45), rgba(232,121,249,0.1) 50%, transparent 75%)',
         }}
       />
 
