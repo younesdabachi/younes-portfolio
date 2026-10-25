@@ -9,8 +9,8 @@ export const site = {
   email: 'dabachiyounes0@gmail.com',
   phoneDisplay: '+212 675 926 365',
   phoneHref: 'tel:+212675926365',
-  cvPath: '/CV_Younes_Ait_Dabachi.pdf',
-  profilePhoto: '/images/profile.jpg',
+  cvPath: '/younes-portfolio/CV_Younes_Ait_Dabachi.pdf',
+  profilePhoto: '/younes-portfolio/images/profile.jpg',
   founded: 2026,
 } as const;
 
