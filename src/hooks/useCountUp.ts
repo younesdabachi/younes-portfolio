@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type RefObject } from 'react';
-import { useInView, useReducedMotion } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useMotionPreference } from './MotionProvider';
 
 interface CountUpResult {
   value: number;
@@ -8,18 +9,18 @@ interface CountUpResult {
 
 /**
  * Compteur animé déclenché à l'entrée dans le viewport.
- * Respecte prefers-reduced-motion (valeur finale immédiate).
+ * Respecte la préférence d'animation (valeur finale immédiate si réduite).
  * Usage : const { value, ref } = useCountUp(6); <span ref={ref}>{value}</span>
  */
 export function useCountUp(target: number, durationMs = 1400): CountUpResult {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: '-40px' });
-  const prefersReducedMotion = useReducedMotion();
+  const { reduceMotion } = useMotionPreference();
   const [value, setValue] = useState(0);
 
   useEffect(() => {
     if (!inView) return;
-    if (prefersReducedMotion) {
+    if (reduceMotion) {
       setValue(target);
       return;
     }
@@ -33,7 +34,7 @@ export function useCountUp(target: number, durationMs = 1400): CountUpResult {
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [inView, target, durationMs, prefersReducedMotion]);
+  }, [inView, target, durationMs, reduceMotion]);
 
   return { value, ref };
 }

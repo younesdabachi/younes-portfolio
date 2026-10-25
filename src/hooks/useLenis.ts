@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import Lenis from 'lenis';
-import { useReducedMotion } from 'framer-motion';
+import { useMotionPreference } from './MotionProvider';
 
 /** Instance Lenis partagée (scrollTo depuis la navbar, la palette, etc.). */
 let lenisInstance: Lenis | null = null;
@@ -27,13 +27,13 @@ export function startScroll(): void {
 
 /**
  * Initialise le défilement fluide Lenis pour toute la page.
- * Désactivé si l'utilisateur préfère réduire les animations.
+ * Désactivé si les animations sont réduites (réglage système ou choix utilisateur).
  */
 export function useLenis(): void {
-  const prefersReducedMotion = useReducedMotion();
+  const { reduceMotion } = useMotionPreference();
 
   useEffect(() => {
-    if (prefersReducedMotion) return;
+    if (reduceMotion) return;
 
     const lenis = new Lenis({
       duration: 1.1,
@@ -54,5 +54,5 @@ export function useLenis(): void {
       lenis.destroy();
       lenisInstance = null;
     };
-  }, [prefersReducedMotion]);
+  }, [reduceMotion]);
 }

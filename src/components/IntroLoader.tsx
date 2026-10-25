@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useI18n } from '../i18n/I18n';
+import { useMotionPreference } from '../hooks/MotionProvider';
 
 /**
  * Intro de chargement (< 1,2 s) : monogramme YA + barre de progression.
- * Ignorée entièrement si prefers-reduced-motion.
+ * Ignorée entièrement si les animations sont désactivées.
  */
 export function IntroLoader({ onDone }: { onDone: () => void }) {
   const { dict } = useI18n();
-  const prefersReducedMotion = useReducedMotion();
+  const { reduceMotion } = useMotionPreference();
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    if (prefersReducedMotion) {
+    if (reduceMotion) {
       onDone();
       return;
     }
@@ -30,9 +31,9 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [onDone, prefersReducedMotion]);
+  }, [onDone, reduceMotion]);
 
-  if (prefersReducedMotion) return null;
+  if (reduceMotion) return null;
 
   return (
     <motion.div

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Command, Languages, Menu, Moon, Sun, X } from 'lucide-react';
+import { Command, Languages, Menu, Moon, Sparkles, Sun, X, ZapOff } from 'lucide-react';
 import { useI18n } from '../i18n/I18n';
 import { useTheme } from '../hooks/ThemeProvider';
+import { useMotionPreference } from '../hooks/MotionProvider';
 import { scrollToSection } from '../hooks/useLenis';
 import { cn } from '../utils/cn';
 
@@ -16,6 +17,7 @@ const navIds = ['about', 'skills', 'experience', 'projects', 'services', 'educat
 export function Navbar({ onOpenPalette }: NavbarProps) {
   const { dict, lang, toggleLang } = useI18n();
   const { theme, toggleTheme } = useTheme();
+  const { reduceMotion, toggle: toggleMotion } = useMotionPreference();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -99,6 +101,23 @@ export function Navbar({ onOpenPalette }: NavbarProps) {
               <Sun className="h-4 w-4" aria-hidden="true" />
             ) : (
               <Moon className="h-4 w-4" aria-hidden="true" />
+            )}
+          </button>
+
+          <button
+            onClick={toggleMotion}
+            className={cn(
+              'glass flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:text-accent',
+              reduceMotion ? 'text-muted' : 'text-accent'
+            )}
+            aria-label={dict.a11y.toggleMotion}
+            aria-pressed={!reduceMotion}
+            data-cursor
+          >
+            {reduceMotion ? (
+              <ZapOff className="h-4 w-4" aria-hidden="true" />
+            ) : (
+              <Sparkles className="h-4 w-4" aria-hidden="true" />
             )}
           </button>
 

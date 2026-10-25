@@ -1,5 +1,6 @@
 import { useRef, type ReactNode, type MouseEvent } from 'react';
-import { motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useMotionPreference } from '../hooks/MotionProvider';
 import { cn } from '../utils/cn';
 
 interface MagneticButtonProps {
@@ -32,14 +33,14 @@ export function MagneticButton({
   ariaLabel,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const prefersReducedMotion = useReducedMotion();
+  const { reduceMotion } = useMotionPreference();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 240, damping: 18, mass: 0.4 });
   const springY = useSpring(y, { stiffness: 240, damping: 18, mass: 0.4 });
 
   const handleMouseMove = (event: MouseEvent<HTMLSpanElement>) => {
-    if (prefersReducedMotion) return;
+    if (reduceMotion) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -57,7 +58,7 @@ export function MagneticButton({
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={reset}
-      style={prefersReducedMotion ? undefined : { x: springX, y: springY }}
+      style={reduceMotion ? undefined : { x: springX, y: springY }}
       className={cn(
         'inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold',
         'transition-colors duration-200 will-change-transform',

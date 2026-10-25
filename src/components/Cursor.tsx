@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useMotionPreference } from '../hooks/MotionProvider';
 
 /**
  * Curseur glow personnalisé : point + halo qui s'agrandit sur les éléments
  * interactifs. Désactivé sur les écrans tactiles et si mouvement réduit
- * (géré en CSS via .cursor-glow + pointer: coarse).
+ * (choix utilisateur ou réglage système).
  */
 export function Cursor() {
+  const { reduceMotion } = useMotionPreference();
   const [enabled, setEnabled] = useState(false);
   const [hovering, setHovering] = useState(false);
   const x = useMotionValue(-100);
@@ -16,8 +18,7 @@ export function Cursor() {
 
   useEffect(() => {
     const fine = window.matchMedia('(pointer: fine)').matches;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!fine || reduced) return;
+    if (!fine || reduceMotion) return;
     setEnabled(true);
 
     const onMove = (event: MouseEvent) => {
@@ -37,7 +38,7 @@ export function Cursor() {
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('mouseover', onOver);
     };
-  }, [x, y]);
+  }, [x, y, reduceMotion]);
 
   if (!enabled) return null;
 

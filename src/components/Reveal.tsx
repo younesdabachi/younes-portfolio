@@ -1,5 +1,6 @@
-import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import type { ElementType, ReactNode } from 'react';
+import { motion } from 'framer-motion';
+import type { ReactNode } from 'react';
+import { useMotionPreference } from '../hooks/MotionProvider';
 
 interface RevealProps {
   children: ReactNode;
@@ -7,31 +8,27 @@ interface RevealProps {
   delay?: number;
   /** Décalage vertical initial en px. */
   y?: number;
-  as?: ElementType;
   className?: string;
   once?: boolean;
 }
 
-/** Révélation au scroll : opacité + translation (GPU-friendly), animée en cascade. */
-export function Reveal({ children, delay = 0, y = 28, as = 'div', className, once = true }: RevealProps) {
-  const prefersReducedMotion = useReducedMotion();
-  const Comp = motion.create(as as ElementType);
-
-  const variants: Variants = {
-    hidden: { opacity: 0, y },
-    visible: { opacity: 1, y: 0 },
-  };
+/**
+ * Révélation au scroll : opacité + translation (GPU-friendly), en cascade.
+ * NB : motion.div est référencé statiquement (jamais recréé dans le rendu)
+ * pour éviter tout remontage du sous-arbre — crucial pour les formulaires.
+ */
+export function Reveal({ children, delay = 0, y = 28, className, once = true }: RevealProps) {
+  const { reduceMotion } = useMotionPreference();
 
   return (
-    <Comp
+    <motion.div
       className={className}
-      initial={prefersReducedMotion ? false : 'hidden'}
-      whileInView="visible"
+      initial={reduceMotion ? false : { opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once, margin: '-60px' }}
-      variants={variants}
       transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
-    </Comp>
+    </motion.div>
   );
 }

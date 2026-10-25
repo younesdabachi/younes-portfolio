@@ -8,10 +8,12 @@ import {
   Mail,
   Moon,
   Search,
+  Sparkles,
   Sun,
 } from 'lucide-react';
 import { useI18n } from '../i18n/I18n';
 import { useTheme } from '../hooks/ThemeProvider';
+import { useMotionPreference } from '../hooks/MotionProvider';
 import { scrollToSection, startScroll, stopScroll } from '../hooks/useLenis';
 import { site } from '../data/site';
 import { cn } from '../utils/cn';
@@ -33,6 +35,7 @@ interface Action {
 export function CommandPalette({ open, onClose }: CommandPaletteProps) {
   const { dict, lang, toggleLang } = useI18n();
   const { theme, toggleTheme } = useTheme();
+  const { reduceMotion, toggle: toggleMotion } = useMotionPreference();
   const [query, setQuery] = useState('');
   const [index, setIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -81,6 +84,13 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
         run: toggleTheme,
       },
       {
+        id: 'motion',
+        label: reduceMotion ? dict.palette.motionOn : dict.palette.motionOff,
+        group: 'action',
+        icon: <Sparkles className="h-4 w-4" aria-hidden="true" />,
+        run: toggleMotion,
+      },
+      {
         id: 'lang',
         label: dict.palette.lang,
         group: 'action',
@@ -114,7 +124,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
     ];
 
     return [...navItems, ...actionItems];
-  }, [dict, theme, toggleTheme, toggleLang]);
+  }, [dict, theme, toggleTheme, toggleLang, reduceMotion, toggleMotion]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();

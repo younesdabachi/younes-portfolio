@@ -72,10 +72,11 @@ Features: client-side validation, honeypot anti-spam field, loading/success/erro
 
 - **FR / EN** toggle (persisted in `localStorage`, sets `<html lang>`), architecture ready for Arabic + RTL (`src/i18n/I18n.tsx` — add `ar.json`, extend the `Lang` type).
 - **Dark / light theme** toggle (persisted), same design tokens remapped.
-- **Command palette** — `Ctrl/Cmd + K`: jump to sections, switch theme/language, download CV, copy email.
+- **Animations toggle** (navbar ⚡ button / command palette): follows the OS `prefers-reduced-motion` setting by default; one click forces animations (3D hero, smooth scrolling, cursor…) on or off, persisted in `localStorage`. If your Windows has "Show animations" turned off and the 3D hero doesn't appear, click the ⚡ button.
+- **Command palette** — `Ctrl/Cmd + K`: jump to sections, switch theme/language/animations, download CV, copy email.
 - **Interactive terminal** in About (`help`, `whoami`, `skills`, `contact`, `clear`, arrow-up history).
-- **3D hero** — lazy-loaded network topology (React Three Fiber, ~3 draw calls), mouse parallax, pulses along links. Automatic fallbacks: static SVG topology when WebGL is unavailable, and no animation at all when `prefers-reduced-motion` is set.
-- **Accessibility**: skip link, focus traps in modal/palette, visible focus rings, ARIA roles, keyboard navigation everywhere, AA+ contrast in both themes, full reduced-motion support.
+- **3D hero** — lazy-loaded network topology (React Three Fiber, ~3 draw calls), mouse parallax, pulses along links. Automatic fallbacks: static SVG topology when WebGL is unavailable, and no animation at all when animations are disabled.
+- **Accessibility**: skip link, focus traps in modal/palette, visible focus rings, ARIA roles, keyboard navigation everywhere, AA+ contrast in both themes, reduced-motion support.
 - **SEO**: meta description, Open Graph + Twitter cards, JSON-LD `Person` schema, `robots.txt`, SVG "YA" favicon.
 
 ## Deploy later to GitHub Pages (user site)

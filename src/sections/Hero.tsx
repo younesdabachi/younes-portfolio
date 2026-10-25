@@ -1,7 +1,8 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowDown, Download, MapPin, Send } from 'lucide-react';
 import { useI18n } from '../i18n/I18n';
+import { useMotionPreference } from '../hooks/MotionProvider';
 import { isWebGLAvailable } from '../hooks/useWebGL';
 import { scrollToSection } from '../hooks/useLenis';
 import { MagneticButton } from '../components/MagneticButton';
@@ -12,27 +13,30 @@ const NetworkScene = lazy(() => import('../components/three/NetworkScene'));
 /** Hero plein écran : nom en dégradé animé, rôles rotatifs, CTA, topologie 3D. */
 export function Hero() {
   const { dict } = useI18n();
-  const prefersReducedMotion = useReducedMotion();
+  const { reduceMotion } = useMotionPreference();
   const webglAvailable = useMemo(isWebGLAvailable, []);
   const [mount3D, setMount3D] = useState(false);
   const [roleIndex, setRoleIndex] = useState(0);
 
   // Monte la scène 3D après le premier rendu (LCP d'abord), jamais en mouvement réduit.
   useEffect(() => {
-    if (!webglAvailable || prefersReducedMotion) return;
+    if (!webglAvailable || reduceMotion) {
+      setMount3D(false);
+      return;
+    }
     const timer = window.setTimeout(() => setMount3D(true), 300);
     return () => window.clearTimeout(timer);
-  }, [webglAvailable, prefersReducedMotion]);
+  }, [webglAvailable, reduceMotion]);
 
   // Rotation des rôles
   useEffect(() => {
-    if (prefersReducedMotion) return;
+    if (reduceMotion) return;
     const id = window.setInterval(
       () => setRoleIndex((i) => (i + 1) % dict.hero.roles.length),
       2600
     );
     return () => window.clearInterval(id);
-  }, [dict.hero.roles.length, prefersReducedMotion]);
+  }, [dict.hero.roles.length, reduceMotion]);
 
   return (
     <section
@@ -91,7 +95,7 @@ export function Hero() {
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-24 pt-28 sm:px-6 lg:pt-24">
         <div className="max-w-2xl">
           <motion.p
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-accent sm:text-sm"
@@ -101,7 +105,7 @@ export function Hero() {
           </motion.p>
 
           <motion.p
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.08 }}
             className="mt-6 text-sm text-muted sm:text-base"
@@ -110,7 +114,7 @@ export function Hero() {
           </motion.p>
 
           <motion.h1
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.14 }}
             className="mt-2 font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl"
@@ -122,7 +126,7 @@ export function Hero() {
           </motion.h1>
 
           <motion.div
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.22 }}
             className="mt-5 flex h-9 items-center text-xl font-medium text-text/90 sm:text-2xl"
@@ -133,9 +137,9 @@ export function Hero() {
             <AnimatePresence mode="wait">
               <motion.span
                 key={roleIndex}
-                initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+                initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={prefersReducedMotion ? undefined : { opacity: 0, y: -12 }}
+                exit={reduceMotion ? undefined : { opacity: 0, y: -12 }}
                 transition={{ duration: 0.4 }}
                 className="text-accent"
               >
@@ -146,7 +150,7 @@ export function Hero() {
           </motion.div>
 
           <motion.p
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-6 max-w-xl leading-relaxed text-muted"
@@ -155,7 +159,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.38 }}
             className="mt-10 flex flex-wrap items-center gap-4"
@@ -174,7 +178,7 @@ export function Hero() {
 
       {/* Indicateur de scroll */}
       <motion.button
-        initial={prefersReducedMotion ? false : { opacity: 0 }}
+        initial={reduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.1, duration: 0.6 }}
         onClick={() => scrollToSection('#about')}
@@ -183,7 +187,7 @@ export function Hero() {
         data-cursor
       >
         <motion.span
-          animate={prefersReducedMotion ? undefined : { y: [0, 8, 0] }}
+          animate={reduceMotion ? undefined : { y: [0, 8, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           className="flex flex-col items-center gap-2"
         >

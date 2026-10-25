@@ -288,12 +288,14 @@ html.light {
 }
 
 /* ---------------------------------------------------------------------------
-   Mouvement réduit : neutralise toutes les animations restantes
+   Mouvement réduit : neutralise les animations restantes.
+   html.force-motion restaure les animations si l'utilisateur les active
+   explicitement (bouton dans la navbar) malgré un réglage système réduit.
 --------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  html:not(.force-motion) *,
+  html:not(.force-motion) *::before,
+  html:not(.force-motion) *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
