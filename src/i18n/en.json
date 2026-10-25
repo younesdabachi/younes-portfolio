@@ -1,0 +1,159 @@
+{
+  "a11y": {
+    "skipToContent": "Skip to main content",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "toggleTheme": "Toggle dark and light theme",
+    "switchLang": "Passer en Français",
+    "openPalette": "Open command palette (Ctrl+K)",
+    "closePalette": "Close command palette",
+    "loading": "Loading portfolio",
+    "sectionProgress": "Page progress",
+    "goToSection": "Go to section",
+    "sceneDecorative": "Decorative 3D animation: network topology",
+    "terminalOutput": "Terminal output",
+    "terminalInput": "Type a command",
+    "closeProject": "Close project details",
+    "backToTop": "Back to top",
+    "emailCopied": "Email address copied to clipboard",
+    "photoFallback": "YA"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "projects": "Projects",
+    "services": "Services",
+    "education": "Education",
+    "languages": "Languages",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hello, I am",
+    "roles": ["Systems & Networks", "IT Support", "Cybersecurity SOC", "WordPress"],
+    "tagline": "Systems & Networks Technician · IT Support · Administrative Officer",
+    "location": "Marrakech, Morocco",
+    "downloadCv": "Download my CV",
+    "contact": "Get in touch",
+    "scroll": "Scroll",
+    "networkLabel": "Interactive network topology"
+  },
+  "about": {
+    "kicker": "01 · About",
+    "title": "A versatile technical profile, from IT support to SOC",
+    "p1": "Computer Systems and Networks Technician (OFPPT) with more than 6 years of professional experience in technical environments: FTTH engineering studies, IT support and networks, security monitoring (SOC) and digital marketing.",
+    "p2": "Skilled in Windows and Linux (Debian) administration, IT asset maintenance, backups, monitoring (Zabbix, Grafana, Wazuh, Suricata) and digital file management. Autonomous, rigorous and problem-solving driven, with strict adherence to deadlines and data confidentiality.",
+    "photoAlt": "Portrait of Younes Ait Dabachi",
+    "factsTitle": "At a glance",
+    "factYears": "years of experience",
+    "factRoles": "professional roles",
+    "factProjects": "selected projects",
+    "factCerts": "Microsoft certifications",
+    "terminalTitle": "Terminal — younes@portfolio"
+  },
+  "skills": {
+    "kicker": "02 · Skills",
+    "title": "A toolkit focused on infrastructure"
+  },
+  "experience": {
+    "kicker": "03 · Experience",
+    "title": "A career at the heart of technical environments",
+    "present": "Present",
+    "missions": "Responsibilities"
+  },
+  "projects": {
+    "kicker": "04 · Projects",
+    "title": "Hands-on projects, from FTTH to SOC",
+    "filters": {
+      "all": "All",
+      "web": "Web",
+      "cyber": "Cybersecurity",
+      "networks": "Networks & IT",
+      "marketing": "Marketing"
+    },
+    "view": "View details",
+    "client": "Client",
+    "period": "Period",
+    "tools": "Tools",
+    "category": "Category",
+    "socBadge": "Illustrative",
+    "socCaption": "SOC dashboard — illustrative representation"
+  },
+  "services": {
+    "kicker": "05 · Services",
+    "title": "What I can do for you"
+  },
+  "education": {
+    "kicker": "06 · Education",
+    "title": "Education & certifications",
+    "diplomas": "Degrees",
+    "certifications": "Certifications",
+    "certBy": "Microsoft"
+  },
+  "langs": {
+    "kicker": "07 · Languages",
+    "title": "Languages"
+  },
+  "contact": {
+    "kicker": "08 · Contact",
+    "title": "Let's work together",
+    "intro": "A question, a project or an opportunity? Write to me.",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "locationLabel": "Location",
+    "form": {
+      "title": "Send a message",
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "Subject of your message",
+      "message": "Message",
+      "messagePlaceholder": "Tell me about your project…",
+      "send": "Send message",
+      "sending": "Sending…",
+      "success": "Message sent. Thank you!",
+      "error": "Sending failed. Please try again or email me directly.",
+      "mailto": "Opening your email application…",
+      "nameError": "Please enter your name (at least 2 characters).",
+      "emailError": "Please enter a valid email address.",
+      "messageError": "Your message must contain at least 10 characters."
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "built": "Designed and built with React, TypeScript and Three.js",
+    "backTop": "Back to top"
+  },
+  "palette": {
+    "title": "Command palette",
+    "placeholder": "Type to search a section or an action…",
+    "navigation": "Navigation",
+    "actions": "Actions",
+    "themeDark": "Switch to dark theme",
+    "themeLight": "Switch to light theme",
+    "lang": "Switch to French",
+    "downloadCv": "Download CV",
+    "copyEmail": "Copy email address",
+    "empty": "No results",
+    "hint": "↑ ↓ navigate · Enter select · Esc close"
+  },
+  "terminal": {
+    "boot1": "Last login: portfolio session.",
+    "boot2": "Type \"help\" to list available commands.",
+    "help": [
+      "help      show this help",
+      "whoami    who am I",
+      "skills    list my skills",
+      "contact   contact details",
+      "clear     clear the terminal"
+    ],
+    "whoamiLines": ["Name", "Title", "Localisation"],
+    "skillsHeader": "Skill groups:",
+    "contactLines": ["Email", "Phone", "Location"],
+    "unknown": "Unknown command",
+    "unknownHint": "Type \"help\" to list available commands."
+  }
+}

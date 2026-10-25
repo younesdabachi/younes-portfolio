@@ -1,0 +1,301 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Design tokens — « Cyber-infrastructure meets luxury »
+   Thème sombre par défaut ; le thème clair remappe les mêmes variables.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-bg: #05070d;
+  --color-surface: #0b1220;
+  --color-elevated: #111a2e;
+  --color-primary: #3b82f6;
+  --color-primary-strong: #2563eb;
+  --color-accent: #22d3ee;
+  --color-gold: #f5a524;
+  --color-text: #e6edf7;
+  --color-muted: #8b9ab3;
+  --color-line: rgba(139, 154, 179, 0.16);
+
+  --font-display: 'Space Grotesk', 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  --animate-aurora-a: aurora-a 26s ease-in-out infinite alternate;
+  --animate-aurora-b: aurora-b 32s ease-in-out infinite alternate;
+  --animate-aurora-c: aurora-c 38s ease-in-out infinite alternate;
+  --animate-gradient-x: gradient-x 7s ease infinite;
+  --animate-blink: blink 1.1s step-end infinite;
+  --animate-dash-flow: dash-flow 3.2s linear infinite;
+  --animate-float-y: float-y 7s ease-in-out infinite;
+  --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
+
+  @keyframes aurora-a {
+    0% {
+      transform: translate3d(-6%, -4%, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(5%, 7%, 0) scale(1.15);
+    }
+    100% {
+      transform: translate3d(-3%, 10%, 0) scale(0.95);
+    }
+  }
+  @keyframes aurora-b {
+    0% {
+      transform: translate3d(4%, 6%, 0) scale(1.05);
+    }
+    50% {
+      transform: translate3d(-7%, -5%, 0) scale(0.92);
+    }
+    100% {
+      transform: translate3d(6%, -8%, 0) scale(1.12);
+    }
+  }
+  @keyframes aurora-c {
+    0% {
+      transform: translate3d(0%, 8%, 0) scale(0.95);
+    }
+    50% {
+      transform: translate3d(-8%, -6%, 0) scale(1.1);
+    }
+    100% {
+      transform: translate3d(8%, 2%, 0) scale(1);
+    }
+  }
+  @keyframes gradient-x {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes dash-flow {
+    to {
+      stroke-dashoffset: -28;
+    }
+  }
+  @keyframes float-y {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 0.35;
+      transform: scale(0.82);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+/* Thème clair : mêmes jetons, valeurs remappées (contraste AA+). */
+html.light {
+  --color-bg: #eef2f9;
+  --color-surface: #ffffff;
+  --color-elevated: #f7fafd;
+  --color-primary: #2563eb;
+  --color-primary-strong: #1d4ed8;
+  --color-accent: #0891b2;
+  --color-gold: #b45309;
+  --color-text: #0b1220;
+  --color-muted: #46536e;
+  --color-line: rgba(11, 18, 32, 0.14);
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scrollbar-color: var(--color-primary) var(--color-bg);
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 32%, transparent);
+    color: var(--color-text);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* Défilement natif doux de secours (Lenis prend le relais sinon) */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Lenis */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Utilitaires maison
+--------------------------------------------------------------------------- */
+@utility glass {
+  background: linear-gradient(
+    145deg,
+    color-mix(in oklab, var(--color-surface) 88%, transparent),
+    color-mix(in oklab, var(--color-elevated) 62%, transparent)
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--color-line);
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 45%,
+    var(--color-gold) 90%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility hairline {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--color-accent) 55%, transparent),
+    transparent
+  );
+  height: 1px;
+}
+
+@utility grid-lines {
+  background-image:
+    linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* Spotlight au survol des cartes : position pilotée par --mx / --my (px). */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    340px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in oklab, var(--color-accent) 14%, transparent),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.spotlight-card:hover::before,
+.spotlight-card:focus-within::before {
+  opacity: 1;
+}
+
+/* Bordure dégradée 1px pour les cartes de verre */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--color-accent) 45%, transparent),
+    color-mix(in oklab, var(--color-primary) 25%, transparent) 40%,
+    transparent 75%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Curseur glow : masqué sur écrans tactiles et si mouvement réduit */
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-glow {
+    display: none !important;
+  }
+}
+
+/* Barre de défilement discrète */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--color-primary) 45%, var(--color-surface));
+  border-radius: 8px;
+  border: 2px solid var(--color-bg);
+}
+
+/* ---------------------------------------------------------------------------
+   Mouvement réduit : neutralise toutes les animations restantes
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

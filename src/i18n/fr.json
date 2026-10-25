@@ -1,0 +1,159 @@
+{
+  "a11y": {
+    "skipToContent": "Aller au contenu principal",
+    "openMenu": "Ouvrir le menu de navigation",
+    "closeMenu": "Fermer le menu de navigation",
+    "toggleTheme": "Basculer entre thème sombre et clair",
+    "switchLang": "Switch to English",
+    "openPalette": "Ouvrir la palette de commandes (Ctrl+K)",
+    "closePalette": "Fermer la palette de commandes",
+    "loading": "Chargement du portfolio",
+    "sectionProgress": "Progression dans la page",
+    "goToSection": "Aller à la section",
+    "sceneDecorative": "Animation 3D décorative : topologie réseau",
+    "terminalOutput": "Sortie du terminal",
+    "terminalInput": "Saisir une commande",
+    "closeProject": "Fermer la fiche projet",
+    "backToTop": "Revenir en haut de page",
+    "emailCopied": "Adresse e-mail copiée dans le presse-papiers",
+    "photoFallback": "YA"
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "skills": "Compétences",
+    "experience": "Expérience",
+    "projects": "Projets",
+    "services": "Services",
+    "education": "Formation",
+    "languages": "Langues",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Bonjour, je suis",
+    "roles": ["Systèmes & Réseaux", "Support IT", "Cybersécurité SOC", "WordPress"],
+    "tagline": "Technicien Systèmes & Réseaux · Support IT · Agent administratif",
+    "location": "Marrakech, Maroc",
+    "downloadCv": "Télécharger mon CV",
+    "contact": "Me contacter",
+    "scroll": "Défiler",
+    "networkLabel": "Topologie réseau interactive"
+  },
+  "about": {
+    "kicker": "01 · À propos",
+    "title": "Un profil technique polyvalent, du support IT au SOC",
+    "p1": "Technicien en Systèmes Informatiques et Réseaux (OFPPT) avec plus de 6 ans d'expérience professionnelle en environnements techniques : études FTTH, support IT et réseaux, supervision de la sécurité (SOC) et marketing digital.",
+    "p2": "Compétences en administration Windows et Linux (Debian), maintenance du parc informatique, sauvegardes, monitoring (Zabbix, Grafana, Wazuh, Suricata) et gestion de dossiers numériques. Autonome, rigoureux et orienté résolution de problèmes, avec un strict respect des délais et de la confidentialité des données.",
+    "photoAlt": "Portrait de Younes Ait Dabachi",
+    "factsTitle": "En bref",
+    "factYears": "années d'expérience",
+    "factRoles": "expériences professionnelles",
+    "factProjects": "projets sélectionnés",
+    "factCerts": "certifications Microsoft",
+    "terminalTitle": "Terminal — younes@portfolio"
+  },
+  "skills": {
+    "kicker": "02 · Compétences",
+    "title": "Une boîte à outils tournée vers l'infrastructure"
+  },
+  "experience": {
+    "kicker": "03 · Expérience",
+    "title": "Un parcours au cœur des environnements techniques",
+    "present": "Présent",
+    "missions": "Missions"
+  },
+  "projects": {
+    "kicker": "04 · Projets",
+    "title": "Des projets concrets, du FTTH au SOC",
+    "filters": {
+      "all": "Tous",
+      "web": "Web",
+      "cyber": "Cybersécurité",
+      "networks": "Réseaux & IT",
+      "marketing": "Marketing"
+    },
+    "view": "Voir le détail",
+    "client": "Client",
+    "period": "Période",
+    "tools": "Outils",
+    "category": "Catégorie",
+    "socBadge": "Illustratif",
+    "socCaption": "Tableau de bord SOC — représentation illustrative"
+  },
+  "services": {
+    "kicker": "05 · Services",
+    "title": "Ce que je peux faire pour vous"
+  },
+  "education": {
+    "kicker": "06 · Formation",
+    "title": "Formation & certifications",
+    "diplomas": "Diplômes",
+    "certifications": "Certifications",
+    "certBy": "Microsoft"
+  },
+  "langs": {
+    "kicker": "07 · Langues",
+    "title": "Langues"
+  },
+  "contact": {
+    "kicker": "08 · Contact",
+    "title": "Travaillons ensemble",
+    "intro": "Une question, un projet ou une opportunité ? Écrivez-moi.",
+    "emailLabel": "E-mail",
+    "phoneLabel": "Téléphone",
+    "locationLabel": "Localisation",
+    "form": {
+      "title": "Envoyer un message",
+      "name": "Nom",
+      "namePlaceholder": "Votre nom",
+      "email": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "subject": "Objet",
+      "subjectPlaceholder": "Sujet de votre message",
+      "message": "Message",
+      "messagePlaceholder": "Parlez-moi de votre projet…",
+      "send": "Envoyer le message",
+      "sending": "Envoi en cours…",
+      "success": "Message envoyé. Merci !",
+      "error": "Échec de l'envoi. Réessayez ou écrivez-moi directement par e-mail.",
+      "mailto": "Ouverture de votre application e-mail…",
+      "nameError": "Veuillez indiquer votre nom (2 caractères minimum).",
+      "emailError": "Veuillez saisir une adresse e-mail valide.",
+      "messageError": "Votre message doit contenir au moins 10 caractères."
+    }
+  },
+  "footer": {
+    "rights": "Tous droits réservés.",
+    "built": "Conçu et développé avec React, TypeScript et Three.js",
+    "backTop": "Haut de page"
+  },
+  "palette": {
+    "title": "Palette de commandes",
+    "placeholder": "Tapez pour rechercher une section ou une action…",
+    "navigation": "Navigation",
+    "actions": "Actions",
+    "themeDark": "Passer en thème sombre",
+    "themeLight": "Passer en thème clair",
+    "lang": "Passer en English",
+    "downloadCv": "Télécharger le CV",
+    "copyEmail": "Copier l'adresse e-mail",
+    "empty": "Aucun résultat",
+    "hint": "↑ ↓ naviguer · Entrée sélectionner · Échap fermer"
+  },
+  "terminal": {
+    "boot1": "Dernière connexion : session portfolio.",
+    "boot2": "Tapez « help » pour afficher les commandes disponibles.",
+    "help": [
+      "help      afficher cette aide",
+      "whoami    qui suis-je",
+      "skills    liste des compétences",
+      "contact   coordonnées",
+      "clear     effacer le terminal"
+    ],
+    "whoamiLines": ["Nom", "Titre", "Localisation"],
+    "skillsHeader": "Groupes de compétences :",
+    "contactLines": ["E-mail", "Téléphone", "Localisation"],
+    "unknown": "Commande inconnue",
+    "unknownHint": "Tapez « help » pour la liste des commandes."
+  }
+}
