@@ -10,10 +10,12 @@ import {
   Search,
   Sparkles,
   Sun,
+  Zap,
 } from 'lucide-react';
 import { useI18n } from '../i18n/I18n';
 import { useTheme } from '../hooks/ThemeProvider';
 import { useMotionPreference } from '../hooks/MotionProvider';
+import { triggerOverdrive } from './Overdrive';
 import { scrollToSection, startScroll, stopScroll } from '../hooks/useLenis';
 import { site } from '../data/site';
 import { cn } from '../utils/cn';
@@ -91,6 +93,17 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
         icon: <Sparkles className="h-4 w-4" aria-hidden="true" />,
         run: toggleMotion,
       },
+      ...(!reduceMotion
+        ? [
+            {
+              id: 'overdrive',
+              label: dict.palette.overdrive,
+              group: 'action' as const,
+              icon: <Zap className="h-4 w-4" aria-hidden="true" />,
+              run: triggerOverdrive,
+            },
+          ]
+        : []),
       {
         id: 'lang',
         label: dict.palette.lang,

@@ -122,7 +122,8 @@
     "a11yRain": "Animation décorative : pluie de caractères style terminal",
     "a11yFeed": "Flux d'alertes simulé, purement décoratif",
     "a11yReveal": "Valeur décryptée",
-    "overdrive": "MODE OVERDRIVE ACTIVÉ"
+    "overdrive": "MODE OVERDRIVE ACTIVÉ",
+    "overdriveButton": "Activer le mode Overdrive"
   },
   "contact": {
     "kicker": "08 · Contact",
@@ -165,6 +166,7 @@
     "themeLight": "Passer en thème clair",
     "motionOn": "Activer les animations",
     "motionOff": "Désactiver les animations",
+    "overdrive": "Activer le mode Overdrive",
     "lang": "Passer en English",
     "downloadCv": "Télécharger le CV",
     "copyEmail": "Copier l'adresse e-mail",

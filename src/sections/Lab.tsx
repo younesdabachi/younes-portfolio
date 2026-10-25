@@ -5,6 +5,7 @@ import { useMotionPreference } from '../hooks/MotionProvider';
 import { MatrixRain } from '../components/MatrixRain';
 import { ThreatFeed } from '../components/ThreatFeed';
 import { Reveal } from '../components/Reveal';
+import { triggerOverdrive } from '../components/Overdrive';
 
 const SCRAMBLE_CHARS = '!<>-_\\/[]{}=+*^?#$%&@01';
 
@@ -166,6 +167,16 @@ export function Lab() {
                   {dict.lab.decryptButton}
                 </button>
                 <p className="text-xs text-hack-dim/80">{dict.lab.decryptHint}</p>
+
+                {!reduceMotion && (
+                  <button
+                    onClick={triggerOverdrive}
+                    className="mt-3 rounded-full border border-neon/60 px-6 py-2.5 font-mono text-sm font-semibold uppercase tracking-[0.2em] text-neon transition-all hover:bg-neon/10 hover:shadow-[0_0_24px_-6px_rgba(232,121,249,0.7)]"
+                    data-cursor
+                  >
+                    ⚡ {dict.lab.overdriveButton}
+                  </button>
+                )}
               </div>
             </div>
           </Reveal>

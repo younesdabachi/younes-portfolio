@@ -16,9 +16,17 @@ const KONAMI = [
   'a',
 ];
 
+const OVERDRIVE_EVENT = 'portfolio:overdrive';
+
+/** Déclenche le MODE OVERDRIVE depuis n'importe quel composant (bouton Lab, palette…). */
+export function triggerOverdrive(): void {
+  window.dispatchEvent(new CustomEvent(OVERDRIVE_EVENT));
+}
+
 /**
- * Œuf de Pâques : code Konami (↑↑↓↓←→←→BA) → MODE OVERDRIVE 12 s.
- * Pluie de caractères plein écran + notification. Ignoré si animations off.
+ * MODE OVERDRIVE : code Konami (↑↑↓↓←→←→BA), bouton du Lab ou action de la
+ * palette → pluie de caractères plein écran + notification pendant 12 s.
+ * Ignoré si les animations sont désactivées.
  */
 export function Overdrive() {
   const { dict } = useI18n();
@@ -29,28 +37,41 @@ export function Overdrive() {
 
   useEffect(() => {
     if (reduceMotion) return;
+
+    const activate = () => {
+      setActive((alreadyActive) => {
+        if (alreadyActive) return alreadyActive;
+        setToast(true);
+        document.body.classList.add('overdrive');
+        window.setTimeout(() => setToast(false), 2600);
+        window.setTimeout(() => {
+          setActive(false);
+          document.body.classList.remove('overdrive');
+        }, 12000);
+        return true;
+      });
+    };
+
     const onKey = (event: KeyboardEvent) => {
       const expected = KONAMI[progress.current];
       if (event.key.toLowerCase() === expected.toLowerCase()) {
         progress.current += 1;
         if (progress.current === KONAMI.length) {
           progress.current = 0;
-          setActive(true);
-          setToast(true);
-          document.body.classList.add('overdrive');
-          window.setTimeout(() => setToast(false), 2600);
-          window.setTimeout(() => {
-            setActive(false);
-            document.body.classList.remove('overdrive');
-          }, 12000);
+          activate();
         }
       } else {
         progress.current = event.key === KONAMI[0] ? 1 : 0;
       }
     };
+
+    const onTrigger = () => activate();
+
     window.addEventListener('keydown', onKey);
+    window.addEventListener(OVERDRIVE_EVENT, onTrigger);
     return () => {
       window.removeEventListener('keydown', onKey);
+      window.removeEventListener(OVERDRIVE_EVENT, onTrigger);
       document.body.classList.remove('overdrive');
     };
   }, [reduceMotion]);

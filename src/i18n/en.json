@@ -122,7 +122,8 @@
     "a11yRain": "Decorative animation: terminal-style character rain",
     "a11yFeed": "Simulated alert feed, purely decorative",
     "a11yReveal": "Decrypted value",
-    "overdrive": "OVERDRIVE MODE ENGAGED"
+    "overdrive": "OVERDRIVE MODE ENGAGED",
+    "overdriveButton": "Engage Overdrive mode"
   },
   "contact": {
     "kicker": "08 · Contact",
@@ -165,6 +166,7 @@
     "themeLight": "Switch to light theme",
     "motionOn": "Enable animations",
     "motionOff": "Disable animations",
+    "overdrive": "Engage Overdrive mode",
     "lang": "Switch to French",
     "downloadCv": "Download CV",
     "copyEmail": "Copy email address",
