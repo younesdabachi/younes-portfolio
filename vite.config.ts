@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // base: '/' — prêt pour un déploiement ultérieur sur GitHub Pages (site utilisateur).
 export default defineConfig({
-  base: '/',
+  base: '/younes-portfolio/',
   plugins: [react(), tailwindcss()],
   build: {
     target: 'es2022',
