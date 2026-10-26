@@ -109,7 +109,7 @@ export function Lab() {
           className="access-granted pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
           aria-hidden="true"
         >
-          <span className="hack-panel rounded-xl px-8 py-4 font-mono text-2xl font-semibold tracking-[0.3em] text-hack shadow-[0_0_60px_-10px_rgba(74,222,128,0.6)] sm:text-3xl">
+          <span className="hack-panel max-w-[90vw] break-words rounded-xl px-5 py-3 text-center font-mono text-base font-semibold tracking-[0.18em] text-hack shadow-[0_0_60px_-10px_rgba(74,222,128,0.6)] sm:px-8 sm:text-2xl sm:tracking-[0.3em] md:text-3xl">
             {dict.lab.accessGranted}
           </span>
         </div>
@@ -135,7 +135,7 @@ export function Lab() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+        <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:gap-8">
           {/* Flux d'alertes simulé */}
           <Reveal delay={0.1}>
             <ThreatFeed />
@@ -143,14 +143,14 @@ export function Lab() {
 
           {/* Protocole de décryptage */}
           <Reveal delay={0.18}>
-            <div className="hack-panel scanlines relative flex h-full flex-col rounded-2xl p-6">
+            <div className="hack-panel scanlines relative flex h-full flex-col rounded-2xl p-5 sm:p-6">
               <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-hack">
                 {dict.lab.decryptTitle}
               </p>
 
-              <div className="mt-6 flex flex-1 items-center justify-center rounded-xl border border-hack-line/60 bg-black/40 px-4 py-10">
+              <div className="mt-6 flex flex-1 items-center justify-center rounded-xl border border-hack-line/60 bg-black/40 px-3 py-8 sm:px-4 sm:py-10">
                 <p
-                  className="hack-caret min-h-[1.4em] text-center font-mono text-xl font-semibold tracking-wider text-hack sm:text-2xl"
+                  className="hack-caret min-h-[2.6em] max-w-full break-words text-center font-mono text-base font-semibold tracking-wider text-hack sm:min-h-[1.4em] sm:text-xl md:text-2xl"
                   aria-live="polite"
                   aria-label={dict.lab.a11yReveal}
                 >
@@ -161,17 +161,17 @@ export function Lab() {
               <div className="mt-6 flex flex-col items-center gap-3">
                 <button
                   onClick={decryptNext}
-                  className="rounded-full border border-hack px-6 py-2.5 font-mono text-sm font-semibold uppercase tracking-[0.2em] text-hack transition-all hover:bg-hack/10 hover:shadow-[0_0_24px_-6px_rgba(74,222,128,0.6)] focus-visible:shadow-[0_0_24px_-6px_rgba(74,222,128,0.6)]"
+                  className="rounded-full border border-hack px-4 py-2.5 text-center font-mono text-sm font-semibold uppercase leading-snug tracking-[0.2em] text-hack transition-all hover:bg-hack/10 hover:shadow-[0_0_24px_-6px_rgba(74,222,128,0.6)] focus-visible:shadow-[0_0_24px_-6px_rgba(74,222,128,0.6)] sm:px-6"
                   data-cursor
                 >
                   {dict.lab.decryptButton}
                 </button>
-                <p className="text-xs text-hack-dim/80">{dict.lab.decryptHint}</p>
+                <p className="text-center text-xs text-hack-dim/80">{dict.lab.decryptHint}</p>
 
                 {!reduceMotion && (
                   <button
                     onClick={triggerOverdrive}
-                    className="mt-3 rounded-full border border-neon/60 px-6 py-2.5 font-mono text-sm font-semibold uppercase tracking-[0.2em] text-neon transition-all hover:bg-neon/10 hover:shadow-[0_0_24px_-6px_rgba(232,121,249,0.7)]"
+                    className="mt-3 rounded-full border border-neon/60 px-4 py-2.5 text-center font-mono text-sm font-semibold uppercase leading-snug tracking-[0.2em] text-neon transition-all hover:bg-neon/10 hover:shadow-[0_0_24px_-6px_rgba(232,121,249,0.7)] sm:px-6"
                     data-cursor
                   >
                     ⚡ {dict.lab.overdriveButton}

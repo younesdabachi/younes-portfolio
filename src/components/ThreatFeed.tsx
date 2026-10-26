@@ -121,7 +121,7 @@ export function ThreatFeed() {
 
   return (
     <div className="hack-panel scanlines relative overflow-hidden rounded-2xl" aria-hidden="true">
-      <div className="flex items-center justify-between border-b border-hack-line px-4 py-2.5">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-hack-line px-4 py-2.5">
         <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-hack">
           <span className="h-2 w-2 rounded-full bg-hack animate-pulse-dot" />
           {dict.lab.feedTitle}
@@ -130,9 +130,9 @@ export function ThreatFeed() {
           {dict.projects.socBadge}
         </span>
       </div>
-      <div ref={listRef} className="h-72 overflow-hidden px-4 py-3 font-mono text-[12px] leading-relaxed">
+      <div ref={listRef} className="h-64 overflow-hidden px-4 py-3 font-mono text-[10.5px] leading-normal sm:h-72 sm:text-[12px] sm:leading-relaxed">
         {lines.map((line) => (
-          <p key={line.id} className="whitespace-nowrap">
+          <p key={line.id} className="break-words whitespace-normal pr-1 lg:whitespace-nowrap">
             <span className="text-hack-dim">{line.time}</span>{' '}
             <span className="text-hack">[{line.tool}]</span>{' '}
             <span className={SEVERITY_CLASS[line.severity]}>{line.severity}</span>{' '}
