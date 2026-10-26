@@ -267,6 +267,7 @@
     "downloadCv": "Download CV",
     "copyEmail": "Copy email address",
     "copyPhone": "Copy phone number",
+    "copied": "Copied to clipboard",
     "empty": "No results",
     "hint": "↑ ↓ navigate · Enter select · Esc close"
   },

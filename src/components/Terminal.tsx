@@ -119,6 +119,11 @@ export function Terminal() {
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'l') {
+      event.preventDefault();
+      setLines([]);
+      return;
+    }
     if (event.key === 'Enter') {
       runCommand(input);
       setInput('');

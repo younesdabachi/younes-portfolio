@@ -12,6 +12,8 @@ import { HudStatusBar } from './components/HudStatusBar';
 import { Ticker } from './components/Ticker';
 import { Overdrive } from './components/Overdrive';
 import { GlitchPulse } from './components/GlitchPulse';
+import { ScrollProgress } from './components/ScrollProgress';
+import { CopyToast } from './components/CopyToast';
 import { Hero } from './sections/Hero';
 import { About } from './sections/About';
 import { Skills } from './sections/Skills';
@@ -59,6 +61,7 @@ export default function App() {
       </AnimatePresence>
 
       <AuroraBackground />
+      <ScrollProgress />
       <Cursor />
       <Navbar onOpenPalette={() => setPaletteOpen(true)} />
       <SectionProgress />
@@ -66,6 +69,7 @@ export default function App() {
       <HudStatusBar />
       <Overdrive />
       <GlitchPulse />
+      <CopyToast />
 
       <main>
         <Hero />

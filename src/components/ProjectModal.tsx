@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Building2, CalendarDays, Tag, Wrench, X } from 'lucide-react';
+import { Building2, CalendarDays, ChevronDown, Tag, Wrench, X } from 'lucide-react';
 import { useI18n } from '../i18n/I18n';
+import { useMotionPreference } from '../hooks/MotionProvider';
 import { startScroll, stopScroll } from '../hooks/useLenis';
 import { ProjectVisual } from './ProjectVisual';
 import { SocDashboard } from './SocDashboard';
@@ -12,11 +14,23 @@ interface ProjectModalProps {
   onClose: () => void;
 }
 
-/** Modal projet animée : focus piégé, Échap pour fermer, scroll verrouillé. */
+/**
+ * Modal projet animée : rendue dans un portail <body> (un ancêtre avec
+ * transform/will-change — les grilles animées — ferait sinon sortir le
+ * position:fixed du viewport), focus piégé, Échap, swipe vers le bas sur mobile.
+ */
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const { dict, lang } = useI18n();
+  const { reduceMotion } = useMotionPreference();
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  // Le swipe-to-close n'a de sens que sur la feuille du bas (mobile).
+  const [isBottomSheet, setIsBottomSheet] = useState(false);
+
+  useEffect(() => {
+    if (!project) return;
+    setIsBottomSheet(window.matchMedia('(max-width: 639px)').matches);
+  }, [project]);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -57,6 +71,10 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
     };
   }, [project, handleKeyDown]);
 
+  const onDragEnd = (_: unknown, info: { offset: { y: number } }) => {
+    if (info.offset.y > 90) onClose();
+  };
+
   const categoryLabel: Record<Project['category'], string> = {
     web: dict.projects.filters.web,
     cyber: dict.projects.filters.cyber,
@@ -64,7 +82,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
     marketing: dict.projects.filters.marketing,
   };
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {project && (
         <motion.div
@@ -89,8 +107,19 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 32, scale: 0.97 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            drag={isBottomSheet && !reduceMotion ? 'y' : false}
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={{ top: 0, bottom: 0.55 }}
+            onDragEnd={onDragEnd}
             className="glass relative z-10 flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-t-3xl sm:rounded-3xl"
           >
+            {/* Poignée de swipe (mobile) */}
+            {isBottomSheet && (
+              <div className="flex justify-center pt-2.5" aria-hidden="true">
+                <ChevronDown className="h-4 w-4 text-muted" />
+              </div>
+            )}
+
             {/* Barre d'outils */}
             <div className="flex items-center justify-between border-b border-line px-5 py-3">
               <span className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
@@ -169,6 +198,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

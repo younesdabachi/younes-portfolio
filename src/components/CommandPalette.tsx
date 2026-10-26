@@ -17,6 +17,7 @@ import { useI18n } from '../i18n/I18n';
 import { useTheme } from '../hooks/ThemeProvider';
 import { useMotionPreference } from '../hooks/MotionProvider';
 import { triggerOverdrive } from './Overdrive';
+import { notifyCopied } from './CopyToast';
 import { scrollToSection, startScroll, stopScroll } from '../hooks/useLenis';
 import { site } from '../data/site';
 import { cn } from '../utils/cn';
@@ -135,6 +136,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
         icon: <Mail className="h-4 w-4" aria-hidden="true" />,
         run: () => {
           void navigator.clipboard?.writeText(site.email);
+          notifyCopied();
         },
       },
       {
@@ -144,6 +146,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
         icon: <Phone className="h-4 w-4" aria-hidden="true" />,
         run: () => {
           void navigator.clipboard?.writeText(site.phoneDisplay);
+          notifyCopied();
         },
       },
     ];
