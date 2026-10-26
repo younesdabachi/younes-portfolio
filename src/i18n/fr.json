@@ -31,6 +31,7 @@
     "education": "Formation",
     "languages": "Langues",
     "lab": "Lab",
+    "interests": "Intérêts",
     "contact": "Contact"
   },
   "hero": {
@@ -125,8 +126,99 @@
     "overdrive": "MODE OVERDRIVE ACTIVÉ",
     "overdriveButton": "Activer le mode Overdrive"
   },
+  "interests": {
+    "kicker": "08 · Centres d'intérêt",
+    "title": "Lois de l'univers & technologies NVIDIA",
+    "intro": "Au-delà de l'IT : une fascination pour les lois qui régissent l'univers et celles qui repoussent les limites du rendu graphique.",
+    "universeTitle": "Lois de l'univers",
+    "universeSubtitle": "Six principes fondamentaux, illustrés par des graphiques animés.",
+    "laws": [
+      {
+        "name": "Entropie",
+        "formula": "ΔS ≥ 0",
+        "desc": "Second principe de la thermodynamique : le désordre d'un système isolé ne peut qu'augmenter."
+      },
+      {
+        "name": "Équivalence masse-énergie",
+        "formula": "E = mc²",
+        "desc": "Une petite masse cache une énergie colossale — le principe des étoiles et de l'énergie nucléaire."
+      },
+      {
+        "name": "Vitesse de la lumière",
+        "formula": "c ≈ 3×10⁸ m/s",
+        "desc": "Limite absolue de causalité : rien ne va plus vite que la lumière dans le vide."
+      },
+      {
+        "name": "Gravitation",
+        "formula": "F = G·m₁m₂/r²",
+        "desc": "Deux masses s'attirent : la force qui façonne les orbites, les étoiles et les galaxies."
+      },
+      {
+        "name": "Croissance exponentielle",
+        "formula": "N(t) = N₀·e^rt",
+        "desc": "Les gains composés deviennent vertigineux — la loi de Moore en est l'incarnation technologique."
+      },
+      {
+        "name": "Chaos — effet papillon",
+        "formula": "δx₀ → δx(t)∞",
+        "desc": "Une infime variation des conditions initiales diverge exponentiellement : sensibilité extrême."
+      }
+    ],
+    "nvidiaTitle": "Technologies NVIDIA",
+    "nvidiaSubtitle": "Les briques du rendu moderne, expliquées simplement.",
+    "nvidia": [
+      {
+        "name": "DLSS",
+        "desc": "L'IA reconstruit une image haute résolution à partir d'une image plus légère : plus de FPS, qualité quasi native."
+      },
+      {
+        "name": "Frame Generation",
+        "desc": "L'IA génère des images intermédiaires entre deux images rendues, multipliant la fluidité perçue."
+      },
+      {
+        "name": "Ray Tracing",
+        "desc": "Simulation physique du trajet de la lumière : reflets, ombres et éclairage d'un réalisme photorealiste."
+      },
+      {
+        "name": "Cœurs CUDA",
+        "desc": "Des milliers de petits cœurs de calcul parallèle : la puissance brute et polyvalente du GPU."
+      },
+      {
+        "name": "Cœurs Tensor",
+        "desc": "Unités dédiées aux mathématiques matricielles de l'IA — le moteur qui fait tourner DLSS."
+      },
+      {
+        "name": "Cœurs RT",
+        "desc": "Accélérateurs matériels des calculs d'intersections rayon/géométrie (traversée BVH ultra-rapide)."
+      },
+      {
+        "name": "VRAM",
+        "desc": "Mémoire rapide dédiée aux textures et données 3D ; trop peu, et les FPS s'effondrent."
+      },
+      {
+        "name": "Resizable BAR",
+        "desc": "Le CPU accède à toute la VRAM d'un bloc au lieu de petits morceaux : meilleur flux, gain de FPS."
+      },
+      {
+        "name": "VSR",
+        "desc": "Video Super Resolution : l'IA améliore la qualité des vidéos en ligne en temps réel via le GPU."
+      },
+      {
+        "name": "NIS",
+        "desc": "NVIDIA Image Scaling : mise à l'échelle et netteté spatiales, sans IA, disponibles sur tout GPU."
+      },
+      {
+        "name": "Reflex",
+        "desc": "Réduit la latence entre la souris et l'écran pour une réponse quasi instantanée en jeu."
+      },
+      {
+        "name": "NVENC",
+        "desc": "Encodeur vidéo matériel dédié : streaming et enregistrement sans charger le CPU."
+      }
+    ]
+  },
   "contact": {
-    "kicker": "08 · Contact",
+    "kicker": "09 · Contact",
     "title": "Travaillons ensemble",
     "intro": "Une question, un projet ou une opportunité ? Écrivez-moi.",
     "emailLabel": "E-mail",

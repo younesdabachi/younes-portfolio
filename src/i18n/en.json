@@ -31,6 +31,7 @@
     "education": "Education",
     "languages": "Languages",
     "lab": "Lab",
+    "interests": "Interests",
     "contact": "Contact"
   },
   "hero": {
@@ -125,8 +126,99 @@
     "overdrive": "OVERDRIVE MODE ENGAGED",
     "overdriveButton": "Engage Overdrive mode"
   },
+  "interests": {
+    "kicker": "08 · Interests",
+    "title": "Laws of the universe & NVIDIA technologies",
+    "intro": "Beyond IT: a fascination for the laws that govern the universe and those that push the limits of graphical rendering.",
+    "universeTitle": "Laws of the universe",
+    "universeSubtitle": "Six fundamental principles, illustrated with animated graphs.",
+    "laws": [
+      {
+        "name": "Entropy",
+        "formula": "ΔS ≥ 0",
+        "desc": "Second law of thermodynamics: the disorder of an isolated system can only increase."
+      },
+      {
+        "name": "Mass–energy equivalence",
+        "formula": "E = mc²",
+        "desc": "A tiny mass hides colossal energy — the principle behind stars and nuclear power."
+      },
+      {
+        "name": "Speed of light",
+        "formula": "c ≈ 3×10⁸ m/s",
+        "desc": "The absolute limit of causality: nothing travels faster than light in a vacuum."
+      },
+      {
+        "name": "Gravitation",
+        "formula": "F = G·m₁m₂/r²",
+        "desc": "Two masses attract each other: the force that shapes orbits, stars and galaxies."
+      },
+      {
+        "name": "Exponential growth",
+        "formula": "N(t) = N₀·e^rt",
+        "desc": "Compounding gains turn dizzying — Moore's law is its technological incarnation."
+      },
+      {
+        "name": "Chaos — butterfly effect",
+        "formula": "δx₀ → δx(t)∞",
+        "desc": "A tiny change in initial conditions diverges exponentially: extreme sensitivity."
+      }
+    ],
+    "nvidiaTitle": "NVIDIA technologies",
+    "nvidiaSubtitle": "The building blocks of modern rendering, explained simply.",
+    "nvidia": [
+      {
+        "name": "DLSS",
+        "desc": "AI reconstructs a high-resolution image from a lighter one: more FPS, near-native quality."
+      },
+      {
+        "name": "Frame Generation",
+        "desc": "AI generates intermediate frames between two rendered frames, multiplying perceived smoothness."
+      },
+      {
+        "name": "Ray Tracing",
+        "desc": "Physical simulation of light paths: reflections, shadows and photorealistic lighting."
+      },
+      {
+        "name": "CUDA cores",
+        "desc": "Thousands of small parallel compute cores: the GPU's raw, versatile power."
+      },
+      {
+        "name": "Tensor cores",
+        "desc": "Units dedicated to AI matrix math — the engine that runs DLSS."
+      },
+      {
+        "name": "RT cores",
+        "desc": "Hardware accelerators for ray/geometry intersection tests (ultra-fast BVH traversal)."
+      },
+      {
+        "name": "VRAM",
+        "desc": "Fast memory dedicated to textures and 3D data; too little, and FPS collapses."
+      },
+      {
+        "name": "Resizable BAR",
+        "desc": "The CPU accesses the whole VRAM in one block instead of small chunks: better flow, more FPS."
+      },
+      {
+        "name": "VSR",
+        "desc": "Video Super Resolution: AI enhances online video quality in real time on the GPU."
+      },
+      {
+        "name": "NIS",
+        "desc": "NVIDIA Image Scaling: spatial upscaling and sharpening, no AI, available on any GPU."
+      },
+      {
+        "name": "Reflex",
+        "desc": "Cuts mouse-to-screen latency for near-instant response in games."
+      },
+      {
+        "name": "NVENC",
+        "desc": "Dedicated hardware video encoder: streaming and recording without loading the CPU."
+      }
+    ]
+  },
   "contact": {
-    "kicker": "08 · Contact",
+    "kicker": "09 · Contact",
     "title": "Let's work together",
     "intro": "A question, a project or an opportunity? Write to me.",
     "emailLabel": "Email",

@@ -20,6 +20,7 @@ import { Projects } from './sections/Projects';
 import { Services } from './sections/Services';
 import { Education } from './sections/Education';
 import { Languages } from './sections/Languages';
+import { Interests } from './sections/Interests';
 import { Lab } from './sections/Lab';
 import { Contact } from './sections/Contact';
 import { Footer } from './sections/Footer';
@@ -76,6 +77,7 @@ export default function App() {
         <Services />
         <Education />
         <Languages />
+        <Interests />
         <Lab />
         <Contact />
       </main>

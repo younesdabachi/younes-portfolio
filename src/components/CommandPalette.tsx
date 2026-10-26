@@ -61,6 +61,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
         ['services', dict.nav.services],
         ['education', dict.nav.education],
         ['languages', dict.nav.languages],
+        ['interests', dict.nav.interests],
         ['lab', dict.nav.lab],
         ['contact', dict.nav.contact],
       ] as const
