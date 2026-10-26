@@ -26,15 +26,16 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
       finish();
       return;
     }
+    // Séquence courte (~1,4 s) pour ne pas retarder le premier contenu (LCP).
     const lines = dict.intro.bootLines;
     const timers: number[] = [];
     lines.forEach((_, i) => {
-      timers.push(window.setTimeout(() => setVisibleLines(i + 1), 240 + i * 260));
+      timers.push(window.setTimeout(() => setVisibleLines(i + 1), 120 + i * 190));
     });
     timers.push(
-      window.setTimeout(() => setGranted(true), 240 + lines.length * 260 + 160)
+      window.setTimeout(() => setGranted(true), 120 + lines.length * 190 + 120)
     );
-    timers.push(window.setTimeout(finish, 240 + lines.length * 260 + 950));
+    timers.push(window.setTimeout(finish, 120 + lines.length * 190 + 700));
     return () => timers.forEach(window.clearTimeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduceMotion, dict.intro.bootLines]);

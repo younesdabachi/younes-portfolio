@@ -2,22 +2,22 @@
 
 Personal portfolio of **Younes Ait Dabachi** — Technicien Systèmes & Réseaux | Support IT | Agent administratif (Marrakech, Morocco).
 
-A futuristic, dark-first, bilingual (FR/EN) single-page portfolio: **Vite + React 18 + TypeScript + Tailwind CSS v4 + Framer Motion + Lenis + React Three Fiber**. Static output only — no backend.
+A cyberpunk, hacker-terminal-styled, bilingual (FR/EN) single-page portfolio: **Vite + React 18 + TypeScript + Tailwind CSS v4 + Framer Motion + Lenis + React Three Fiber**. Static output only — no backend.
+
+**Live:** https://younesdabachi.github.io/younes-portfolio/ — every push to `main` auto-deploys via GitHub Actions.
 
 ---
 
 ## Run locally (Windows)
 
-Requirements: **Node.js 18+** (LTS recommended) and npm.
+Requirements: **Node.js 18+** and npm.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open http://localhost:5173
-
-Other commands:
+Open **http://localhost:5173/younes-portfolio/** (note the base path — it matches the GitHub Pages URL).
 
 ```bash
 npm run build      # type-check + optimized static build → /dist
@@ -27,75 +27,73 @@ npm run typecheck  # TypeScript only
 npm run format     # Prettier
 ```
 
-> ⚠️ Windows note: if `npm run dev` is blocked by OneDrive sync, pause sync or move the folder outside OneDrive.
+## Performance engineering
 
-## Editing content — where everything lives
-
-All site content is data-driven; **no text is hardcoded in components**.
-
-| What | File |
+| Technique | Detail |
 |---|---|
-| Name, email, phone, CV path, photo path, stats | `src/data/site.ts` |
-| Skills groups & chips | `src/data/skills.ts` |
-| Experience timeline (bilingual) | `src/data/experience.ts` |
-| **Projects** (cards + modal) | `src/data/projects.ts` |
-| Services | `src/data/services.ts` |
-| Education, certifications, languages | `src/data/education.ts` |
-| UI strings FR | `src/i18n/fr.json` |
-| UI strings EN | `src/i18n/en.json` |
-
-Bilingual fields are simple objects: `title: { fr: '…', en: '…' }`.
-
-**Adding a real project screenshot later:** drop the image in `public/images/` (e.g. `public/images/soc.jpg`), then reference it in `src/data/projects.ts`. Until then, each project uses a generated abstract SVG visual (`browser`, `soc`, `topology`, `funnel` variants in `src/components/ProjectVisual.tsx`).
-
-## Placeholders to review
-
-- **CV**: expected at `public/CV_Younes_Ait_Dabachi.pdf` — ✅ already in place. The "Download CV" button (hero + command palette) links to it.
-- **Profile photo**: expected at `public/images/profile.jpg` — ✅ already in place (compressed to ~130 KB). If the file is missing, the About section falls back to a stylish "YA" monogram automatically.
-- **Canonical + Open Graph URLs** in `index.html` currently point to `https://username.github.io/` — replace with the real URL after deployment.
-- **The SOC dashboard** shown in the cybersecurity project is clearly labelled *Illustrative* — it is a decorative SVG, not real monitoring data.
-
-## Contact form — Web3Forms
-
-The form in the Contact section posts to [Web3Forms](https://web3forms.com) and **gracefully falls back to a `mailto:` link if no key is configured** (the site never breaks).
-
-1. Get a free access key at https://web3forms.com (enter your email, receive the key).
-2. Copy `.env.example` to `.env` and paste your key:
-   ```
-   VITE_WEB3FORMS_KEY="your-real-key"
-   ```
-3. Restart `npm run dev`.
-
-Features: client-side validation, honeypot anti-spam field, loading/success/error states, `aria-live` announcements.
+| **Code-splitting** | Vendor chunks (`react`, `framer-motion`) cached long-term; app code in its own chunk; **three.js lazy-loaded** only for the 3D hero (mounted on `requestIdleCallback`, never blocks first paint). |
+| **Drei removed** | The `<Float>` helper was hand-rolled in `useFrame`, cutting ~160 kB from the three chunk (967 → 808 kB). |
+| **Self-hosted fonts** | All woff2 files in `public/fonts` (latin + latin-ext, `font-display: swap`, `unicode-range` splits). Zero requests to Google Fonts. Critical fonts (Space Grotesk 700, Inter 400) are `<link rel="preload">`d. Regenerate with `node scripts/fetch-fonts.mjs`. |
+| **`content-visibility: auto`** | Below-fold sections skip rendering/layout until scrolled near (`contain-intrinsic-size` avoids jumps). |
+| **Fast intro** | Boot sequence shortened to ~1.4 s, clickable to skip, fully skipped when animations are off (LCP protection). |
+| **GPU-only animation** | All effects use `transform`/`opacity`/`filter`; the matrix rain canvas runs at ~24 fps, DPR-capped at 1.5, and **pauses when off-screen or the tab is hidden**. |
+| **Memory discipline** | Every timer, rAF loop, listener and IntersectionObserver is cleaned on unmount; the terminal caps its history at 60 lines; the alert feed at 40. No leaks. |
+| **Clean prod output** | `esbuild.drop: ['console','debugger']` — nothing leaks to the console. |
+| **Media** | Profile photo compressed to ~128 kB (from 4.7 MB) with explicit dimensions; SVG visuals everywhere else; CV PDF loads only on click. |
 
 ## Features
 
-- **FR / EN** toggle (persisted in `localStorage`, sets `<html lang>`), architecture ready for Arabic + RTL (`src/i18n/I18n.tsx` — add `ar.json`, extend the `Lang` type).
-- **Dark / light theme** toggle (persisted), same design tokens remapped.
-- **Animations toggle** (navbar ⚡ button / command palette): follows the OS `prefers-reduced-motion` setting by default; one click forces animations (3D hero, smooth scrolling, cursor…) on or off, persisted in `localStorage`. If your Windows has "Show animations" turned off and the 3D hero doesn't appear, click the ⚡ button.
-- **Command palette** — `Ctrl/Cmd + K`: jump to sections, switch theme/language/animations, download CV, copy email.
-- **Interactive terminal** in About (`help`, `whoami`, `skills`, `contact`, `clear`, arrow-up history).
-- **3D hero** — lazy-loaded network topology (React Three Fiber, ~3 draw calls), mouse parallax, pulses along links. Automatic fallbacks: static SVG topology when WebGL is unavailable, and no animation at all when animations are disabled.
-- **Accessibility**: skip link, focus traps in modal/palette, visible focus rings, ARIA roles, keyboard navigation everywhere, AA+ contrast in both themes, reduced-motion support.
-- **SEO**: meta description, Open Graph + Twitter cards, JSON-LD `Person` schema, `robots.txt`, SVG "YA" favicon.
+### Sections (in order)
+Hero (3D network topology) · About (glitched photo, real-counters, interactive terminal) · Skills (chips, decrypt on hover) · Experience (sticky timeline) · Projects (filterable, `PRJ-XX` file tags, animated modals) · Services · Education & Certifications · Languages · **Interests** (laws of the universe with animated graphs + 12 NVIDIA technologies explained) · **Lab** (`// INTERLUDE · SOC MODE`) · Contact · Footer (live hexdump).
 
-## Deploy later to GitHub Pages (user site)
+### Signature features
+- **Command palette** (`Ctrl/Cmd+K`): navigation, theme, language, animations, Overdrive, copy email/phone, download CV.
+- **Interactive terminal** (`help`, `whoami`, `skills`, `projects`, `experience`, `education`, `neofetch`, `contact`, `overdrive`, `clear`) — prints real portfolio data, arrow-key history.
+- **MODE OVERDRIVE**: the ⚡ button in the Lab, the palette action, the `overdrive` terminal command — or the Konami code (↑↑↓↓←→←→BA): 12 s of full-screen matrix rain + hue shift.
+- **Animations toggle** (⚡ navbar): follows the OS `prefers-reduced-motion` setting by default; user can force on/off (`localStorage`). CSS effects are gated via `html.motion-ok`.
+- **Boot-sequence intro**, typewriter hero roles, scramble-decrypt section titles and tagline, HUD status bar, keyword ticker, signal LEDs, glitch photo loop, random site glitch pulse, **glitch hover on every button**, social buttons (Facebook · LinkedIn · WhatsApp) with looping RGB glitch.
+- **FR/EN** toggle (persisted, `<html lang>`), architecture ready for Arabic + RTL.
+- **Dark / light theme** (persisted), both AA+ contrast.
+- **Contact form**: Web3Forms with honeypot, validation, graceful `mailto:` fallback.
 
-The build already uses `base: '/'`, so it works as-is for `username.github.io`:
+## Editing content — where everything lives
+
+No text is hardcoded in components.
+
+| What | File |
+|---|---|
+| Name, email, phone, CV/photo paths, **social URLs** | `src/data/site.ts` |
+| Skills · Experience · **Projects** · Services · Education/Languages | `src/data/*.ts` |
+| UI strings (incl. laws of the universe, NVIDIA techs, terminal, palette) | `src/i18n/fr.json`, `src/i18n/en.json` |
+| Design tokens / hacker effects | `src/styles/global.css` |
+
+Bilingual fields are `{ fr: '…', en: '…' }`. Project visuals are generated SVGs (`src/components/ProjectVisual.tsx`); drop real screenshots in `public/images/` and reference them in `src/data/projects.ts`.
+
+## Placeholders to review
+
+- **CV**: `public/CV_Younes_Ait_Dabachi.pdf` ✅ in place.
+- **Profile photo**: `public/images/profile.jpg` ✅ (compressed). Automatic "YA" monogram fallback if missing.
+- **`.env`** contains the Web3Forms key and is committed so the Actions build can use it. Web3Forms keys are client-side by design, but anyone can read it — restrict it to your domain (or rotate it) from https://web3forms.com. For stricter hygiene, move it to a GitHub Actions secret instead.
+- Root `deploy.yml` is an inactive duplicate of `.github/workflows/main.yml` — safe to delete.
+
+## Contact form — Web3Forms
+
+1. Free key at https://web3forms.com.
+2. `.env` → `VITE_WEB3FORMS_KEY="your-key"` (or a GitHub Actions secret).
+3. Restart `npm run dev`. Without a key the form falls back to `mailto:`.
+
+## Deploy (GitHub Pages)
+
+`base: '/younes-portfolio/'` is set in `vite.config.ts`. The workflow `.github/workflows/main.yml` builds and deploys on every push to `main`:
 
 ```bash
 npm run build
+git push
 ```
-
-Then either:
-- Push the contents of `/dist` to the `main` branch of your `username.github.io` repository, **or**
-- From this project's repository: Settings → Pages → Deploy from branch → `gh-pages` (you can create it with `npx gh-pages -d dist`).
-
-After deploying, replace the placeholder canonical/OG URLs in `index.html` with the real `https://username.github.io/` address and rebuild.
 
 ## Tech stack
 
-Vite 6 · React 18 · TypeScript (strict) · Tailwind CSS 4 · Framer Motion 11 · Lenis 1 · React Three Fiber 8 + drei 9 · three.js 0.170 · lucide-react · ESLint 9 + Prettier
+Vite 6 · React 18 · TypeScript (strict) · Tailwind CSS 4 · Framer Motion 11 · Lenis 1 · React Three Fiber 8 · three 0.170 · lucide-react · ESLint 9 + Prettier
 
 ---
 

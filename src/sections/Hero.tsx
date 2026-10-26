@@ -34,14 +34,24 @@ export function Hero() {
     return () => window.clearTimeout(timer);
   }, [reduceMotion, dict.hero.tagline]);
 
-  // Monte la scène 3D après le premier rendu (LCP d'abord), jamais en mouvement réduit.
+  // Monte la scène 3D pendant un temps mort du navigateur (le LCP d'abord),
+  // jamais en mouvement réduit.
   useEffect(() => {
     if (!webglAvailable || reduceMotion) {
       setMount3D(false);
       return;
     }
-    const timer = window.setTimeout(() => setMount3D(true), 300);
-    return () => window.clearTimeout(timer);
+    // requestIdleCallback : ne concurrence pas le rendu initial.
+    const idle =
+      typeof window.requestIdleCallback === 'function'
+        ? window.requestIdleCallback
+        : (cb: () => void) => window.setTimeout(cb, 300);
+    const cancel =
+      typeof window.cancelIdleCallback === 'function'
+        ? window.cancelIdleCallback
+        : (id: number) => window.clearTimeout(id);
+    const handle = idle(() => setMount3D(true));
+    return () => cancel(handle as number);
   }, [webglAvailable, reduceMotion]);
 
   // Rôles en effet « machine à écrire » : frappe, pause, effacement, suivant.

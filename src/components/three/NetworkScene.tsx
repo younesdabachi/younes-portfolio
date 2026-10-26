@@ -1,12 +1,12 @@
 import { useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float } from '@react-three/drei';
 import * as THREE from 'three';
 
 /**
  * Scène 3D « topologie réseau » : nœuds lumineux reliés par des liens fins,
  * impulsions voyageant le long des liaisons, rotation lente + parallax souris.
  * ~3 draw calls (points, lignes, impulsions) — très léger.
+ * Flottement doux recalculé dans useFrame (drei retiré pour alléger le bundle).
  */
 
 const NODE_COUNT = typeof window !== 'undefined' && window.innerWidth < 768 ? 30 : 44;
@@ -54,9 +54,7 @@ function seeded(n: number): number {
 function Topology() {
   const spinRef = useRef<THREE.Group>(null);
   const parallaxRef = useRef<THREE.Group>(null);
-  const pulseGeomRef = useRef<THREE.BufferGeometry>(null);
-
-  const { nodes, edges } = useMemo(buildTopology, []);
+  const pulseGeomRef = useRef<THREE.BufferGeometry>(null);  const { nodes, edges } = useMemo(buildTopology, []);
 
   const { linePositions, lineColors, nodeColors } = useMemo(() => {
     const linePositions = new Float32Array(edges.length * 6);
@@ -98,8 +96,11 @@ function Topology() {
     // Rotation lente continue
     if (spinRef.current) spinRef.current.rotation.y += dt * 0.07;
 
-    // Parallax souris (adouci)
+    // Flottement doux (remplace <Float> de drei) + parallax souris adouci
     if (parallaxRef.current) {
+      const t = state.clock.elapsedTime;
+      parallaxRef.current.position.y = Math.sin(t * 0.7) * 0.09;
+      parallaxRef.current.rotation.z = Math.sin(t * 0.4) * 0.02;
       parallaxRef.current.rotation.x = THREE.MathUtils.lerp(
         parallaxRef.current.rotation.x,
         state.pointer.y * -0.16,
@@ -131,9 +132,8 @@ function Topology() {
   });
 
   return (
-    <Float speed={1.1} rotationIntensity={0.15} floatIntensity={0.45}>
-      <group ref={parallaxRef}>
-        <group ref={spinRef}>
+    <group ref={parallaxRef}>
+      <group ref={spinRef}>
           {/* Nœuds */}
           <points>
             <bufferGeometry>
@@ -181,9 +181,8 @@ function Topology() {
               depthWrite={false}
             />
           </points>
-        </group>
       </group>
-    </Float>
+    </group>
   );
 }
 
