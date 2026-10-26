@@ -17,6 +17,9 @@
     "terminalOutput": "Sortie du terminal",
     "terminalInput": "Saisir une commande",
     "closeProject": "Fermer la fiche projet",
+    "openFacebook": "Ouvrir mon profil Facebook",
+    "openLinkedin": "Ouvrir mon profil LinkedIn",
+    "openWhatsapp": "Discuter sur WhatsApp",
     "backToTop": "Revenir en haut de page",
     "emailCopied": "Adresse e-mail copiée dans le presse-papiers",
     "photoFallback": "YA"
@@ -224,6 +227,7 @@
     "emailLabel": "E-mail",
     "phoneLabel": "Téléphone",
     "locationLabel": "Localisation",
+    "socialTitle": "Réseaux & messagerie",
     "form": {
       "title": "Envoyer un message",
       "name": "Nom",

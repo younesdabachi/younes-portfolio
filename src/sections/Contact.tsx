@@ -4,6 +4,7 @@ import { useI18n } from '../i18n/I18n';
 import { SectionHeading } from '../components/SectionHeading';
 import { GlassCard } from '../components/GlassCard';
 import { Reveal } from '../components/Reveal';
+import { SocialButtons } from '../components/SocialButtons';
 import { site } from '../data/site';
 import { cn } from '../utils/cn';
 
@@ -153,6 +154,16 @@ export function Contact() {
                 </span>
                 <span className="mt-1 block text-sm font-medium">{site.location[lang]}</span>
               </span>
+            </div>
+          </Reveal>
+
+          {/* Réseaux sociaux */}
+          <Reveal delay={0.24}>
+            <div className="glass gradient-border spotlight-card flex flex-col gap-4 rounded-2xl p-5 sm:flex-row sm:items-center sm:justify-between">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+                {dict.contact.socialTitle}
+              </span>
+              <SocialButtons size="lg" />
             </div>
           </Reveal>
         </div>

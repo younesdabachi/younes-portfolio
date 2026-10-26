@@ -17,6 +17,9 @@
     "terminalOutput": "Terminal output",
     "terminalInput": "Type a command",
     "closeProject": "Close project details",
+    "openFacebook": "Open my Facebook profile",
+    "openLinkedin": "Open my LinkedIn profile",
+    "openWhatsapp": "Chat on WhatsApp",
     "backToTop": "Back to top",
     "emailCopied": "Email address copied to clipboard",
     "photoFallback": "YA"
@@ -224,6 +227,7 @@
     "emailLabel": "Email",
     "phoneLabel": "Phone",
     "locationLabel": "Location",
+    "socialTitle": "Social & messaging",
     "form": {
       "title": "Send a message",
       "name": "Name",

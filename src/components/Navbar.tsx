@@ -79,7 +79,7 @@ export function Navbar({ onOpenPalette }: NavbarProps) {
             <li key={id}>
               <button
                 onClick={() => go(id)}
-                className="nav-glitch rounded-full px-3 py-2 text-sm text-muted transition-colors hover:bg-surface/60 hover:text-text"
+                className="rounded-full px-3 py-2 text-sm text-muted transition-colors hover:bg-surface/60 hover:text-text"
                 data-cursor
               >
                 {labels[id]}

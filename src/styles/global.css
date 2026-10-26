@@ -547,19 +547,6 @@ html.motion-ok .glitch-scan {
 }
 
 /* ---------------------------------------------------------------------------
-   Micro-glitch des liens de navigation au survol
---------------------------------------------------------------------------- */
-html.motion-ok .nav-glitch:hover {
-  animation: nav-micro-glitch 0.32s steps(1) 1;
-}
-@keyframes nav-micro-glitch {
-  0% { text-shadow: -2px 0 var(--color-accent), 2px 0 var(--color-neon); transform: translateX(0); }
-  33% { text-shadow: 2px 0 var(--color-accent), -2px 0 var(--color-neon); transform: translateX(1px) skewX(-4deg); }
-  66% { text-shadow: -1px 0 var(--color-accent), 1px 0 var(--color-neon); transform: translateX(-1px); }
-  100% { text-shadow: none; transform: none; }
-}
-
-/* ---------------------------------------------------------------------------
    Impulsion de glitch globale ( périodique, très brève, sur <main> )
 --------------------------------------------------------------------------- */
 html.motion-ok .glitch-pulse-active main {
@@ -569,6 +556,64 @@ html.motion-ok .glitch-pulse-active main {
   0% { filter: hue-rotate(25deg) contrast(1.15); transform: translateX(-3px); }
   50% { filter: hue-rotate(-20deg); transform: translateX(2px) skewX(-0.3deg); }
   100% { filter: none; transform: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Micro-glitch au survol — TOUS les boutons et liens interactifs du site
+--------------------------------------------------------------------------- */
+html.motion-ok button:not(.no-glitch):hover,
+html.motion-ok a[data-cursor]:hover {
+  animation: micro-glitch 0.32s steps(1) 1;
+}
+@keyframes micro-glitch {
+  0% { text-shadow: -2px 0 var(--color-accent), 2px 0 var(--color-neon); transform: translateX(0); }
+  33% { text-shadow: 2px 0 var(--color-accent), -2px 0 var(--color-neon); transform: translateX(1px) skewX(-4deg); }
+  66% { text-shadow: -1px 0 var(--color-accent), 1px 0 var(--color-neon); transform: translateX(-1px); }
+  100% { text-shadow: none; transform: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Boutons sociaux : glitch RGB en boucle tant que le pointeur survole
+--------------------------------------------------------------------------- */
+.social-glitch svg {
+  transition: transform 0.2s ease;
+}
+.social-glitch:hover svg,
+.social-glitch:focus-visible svg {
+  transform: scale(1.12);
+}
+html.motion-ok .social-glitch:hover svg,
+html.motion-ok .social-glitch:focus-visible svg {
+  animation: icon-glitch 0.42s steps(1) infinite;
+}
+@keyframes icon-glitch {
+  0%, 100% {
+    filter: drop-shadow(-2px 0 var(--color-accent)) drop-shadow(2px 0 var(--color-neon));
+    clip-path: none;
+  }
+  25% {
+    filter: drop-shadow(2px 1px var(--color-accent)) drop-shadow(-2px -1px var(--color-neon));
+    transform: translateX(2px) skewX(-8deg) scale(1.12);
+    clip-path: inset(12% 0 55% 0);
+  }
+  50% {
+    filter: drop-shadow(-3px 0 var(--color-neon)) drop-shadow(3px 0 var(--color-accent));
+    transform: translateX(-2px) scale(1.12);
+    clip-path: inset(58% 0 8% 0);
+  }
+  75% {
+    filter: drop-shadow(1px -1px var(--color-accent)) drop-shadow(-1px 1px var(--color-neon));
+    transform: translateX(1px) skewX(4deg) scale(1.12);
+    clip-path: inset(30% 0 38% 0);
+  }
+}
+html.motion-ok .social-glitch:hover,
+html.motion-ok .social-glitch:focus-visible {
+  animation: social-border-flicker 0.42s steps(1) infinite;
+}
+@keyframes social-border-flicker {
+  0%, 100% { border-color: var(--color-line); }
+  50% { border-color: var(--color-accent); }
 }
 
 /* ---------------------------------------------------------------------------

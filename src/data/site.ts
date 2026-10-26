@@ -20,6 +20,11 @@ export const site = {
   phoneHref: 'tel:+212675926365',
   cvPath: `${BASE}CV_Younes_Ait_Dabachi.pdf`,
   profilePhoto: `${BASE}images/profile.jpg`,
+  socials: {
+    facebook: 'https://web.facebook.com/you.dabachi.3',
+    linkedin: 'https://www.linkedin.com/in/younes-ait-dabachi-a229b4154/',
+    whatsapp: 'https://wa.me/212675926365',
+  },
   founded: 2026,
 } as const;
 

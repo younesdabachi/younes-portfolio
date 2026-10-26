@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
 import { useI18n } from '../i18n/I18n';
 import { useMotionPreference } from '../hooks/MotionProvider';
+import { SocialButtons } from '../components/SocialButtons';
 import { site } from '../data/site';
 import { scrollToSection } from '../hooks/useLenis';
 
@@ -60,6 +61,9 @@ export function Footer() {
               <Phone className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="sr-only sm:not-sr-only">{site.phoneDisplay}</span>
             </a>
+          </li>
+          <li aria-hidden="false">
+            <SocialButtons size="md" />
           </li>
         </ul>
 
